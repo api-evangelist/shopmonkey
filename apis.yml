@@ -1,0 +1,216 @@
+aid: shopmonkey
+url: https://raw.githubusercontent.com/api-evangelist/shopmonkey/refs/heads/main/apis.yml
+name: Shopmonkey
+kind: company
+description: Shopmonkey is a cloud-based shop management platform for auto repair,
+  tire, and powersports shops, covering estimates, work orders, customer
+  communication, parts/inventory, scheduling, invoicing, and payments.
+  Shopmonkey publishes a documented public API at developer.shopmonkey.io /
+  shopmonkey.dev (base https://api.shopmonkey.cloud/v3). Despite being
+  commonly assumed to be GraphQL, the confirmed public API is REST/JSON
+  (v3), authenticated with a Bearer API key, covering 50+ resources -
+  Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments,
+  Appointments, Employees (Users), Locations, and Webhooks. No GraphQL
+  endpoint, schema, or query/mutation language is documented anywhere on
+  Shopmonkey's developer site. Enterprise accounts can also run the
+  open-source Enterprise Data Streaming (EDS) server for near-real-time
+  change data capture into a customer-controlled destination.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Auto Repair
+- Shop Management
+- Field Service
+- REST
+- Not GraphQL
+created: '2026-07-04'
+modified: '2026-07-04'
+specificationVersion: '0.19'
+apis:
+- aid: shopmonkey:shopmonkey-work-orders-api
+  name: Shopmonkey Work Orders API
+  tags:
+  - Work Orders
+  - Orders
+  - Service
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://shopmonkey.dev/resources/order
+  baseURL: https://api.shopmonkey.cloud/v3
+  properties:
+  - url: https://shopmonkey.dev/overview
+    type: Documentation
+  - url: https://shopmonkey.dev/resources/order
+    type: APIReference
+  - url: openapi/shopmonkey-openapi.yml
+    type: OpenAPI
+  description: Create, update, search, and move work orders through shop workflow
+    stages; manage order-level services, parts, labor, fees, tires, subcontracts,
+    authorizations, files, and PDFs. Confirmed against shopmonkey.dev/resources/order.
+- aid: shopmonkey:shopmonkey-customers-api
+  name: Shopmonkey Customers API
+  tags:
+  - Customers
+  - CRM
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://shopmonkey.dev/resources/customer
+  baseURL: https://api.shopmonkey.cloud/v3
+  properties:
+  - url: https://shopmonkey.dev/overview
+    type: Documentation
+  - url: https://shopmonkey.dev/resources/customer
+    type: APIReference
+  - url: openapi/shopmonkey-openapi.yml
+    type: OpenAPI
+  description: Create, update, soft-delete, and search customer records; manage
+    a customer's emails and phone numbers; list a customer's vehicles, orders, and
+    deferred services. Confirmed against shopmonkey.dev/resources/customer.
+- aid: shopmonkey:shopmonkey-vehicles-api
+  name: Shopmonkey Vehicles API
+  tags:
+  - Vehicles
+  - VIN
+  - Fitment
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://shopmonkey.dev/resources/vehicle
+  baseURL: https://api.shopmonkey.cloud/v3
+  properties:
+  - url: https://shopmonkey.dev/overview
+    type: Documentation
+  - url: https://shopmonkey.dev/resources/vehicle
+    type: APIReference
+  - url: openapi/shopmonkey-openapi.yml
+    type: OpenAPI
+  description: Create and update vehicles; validate VINs and license plates; look
+    up year/make/model/submodel data; track mileage and tire-pressure logs, ownership
+    history, and deferred services. Confirmed against shopmonkey.dev/resources/vehicle.
+- aid: shopmonkey:shopmonkey-inventory-parts-api
+  name: Shopmonkey Inventory & Parts API
+  tags:
+  - Inventory
+  - Parts
+  - Tires
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://shopmonkey.dev/resources/part
+  baseURL: https://api.shopmonkey.cloud/v3
+  properties:
+  - url: https://shopmonkey.dev/overview
+    type: Documentation
+  - url: https://shopmonkey.dev/resources/part
+    type: APIReference
+  - url: openapi/shopmonkey-openapi.yml
+    type: OpenAPI
+  description: List, search, and summarize parts inventory; find vehicle-compatible
+    parts; manage bulk line-item assignments of parts, tires, and labor to order
+    services. Confirmed against shopmonkey.dev/resources/part.
+- aid: shopmonkey:shopmonkey-invoices-payments-api
+  name: Shopmonkey Invoices & Payments API
+  tags:
+  - Invoices
+  - Payments
+  - Refunds
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://shopmonkey.dev/resources/payment
+  baseURL: https://api.shopmonkey.cloud/v3
+  properties:
+  - url: https://shopmonkey.dev/overview
+    type: Documentation
+  - url: https://shopmonkey.dev/resources/payment
+    type: APIReference
+  - url: openapi/shopmonkey-openapi.yml
+    type: OpenAPI
+  description: Retrieve customer-shared order PDFs and signed invoices, search
+    payments, and record or refund manual payments against an order. Confirmed
+    against shopmonkey.dev/resources/payment and the order_shared endpoints
+    surfaced under shopmonkey.dev/resources/order.
+- aid: shopmonkey:shopmonkey-appointments-api
+  name: Shopmonkey Appointments API
+  tags:
+  - Appointments
+  - Scheduling
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://shopmonkey.dev/resources/appointment
+  baseURL: https://api.shopmonkey.cloud/v3
+  properties:
+  - url: https://shopmonkey.dev/overview
+    type: Documentation
+  - url: https://shopmonkey.dev/resources/appointment
+    type: APIReference
+  - url: openapi/shopmonkey-openapi.yml
+    type: OpenAPI
+  description: Create, update, search, confirm, and cancel shop appointments,
+    including recurring appointment modifications. Confirmed against
+    shopmonkey.dev/resources/appointment.
+- aid: shopmonkey:shopmonkey-employees-api
+  name: Shopmonkey Employees API
+  tags:
+  - Employees
+  - Users
+  - Roles
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://shopmonkey.dev/resources/user
+  baseURL: https://api.shopmonkey.cloud/v3
+  properties:
+  - url: https://shopmonkey.dev/overview
+    type: Documentation
+  - url: https://shopmonkey.dev/resources/user
+    type: APIReference
+  - url: openapi/shopmonkey-openapi.yml
+    type: OpenAPI
+  description: List, create, and update Shopmonkey users (employees), assign
+    roles, change passwords, and fetch the currently authenticated user. Confirmed
+    against shopmonkey.dev/resources/user.
+- aid: shopmonkey:shopmonkey-locations-api
+  name: Shopmonkey Locations API
+  tags:
+  - Locations
+  - Multi-Shop
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://shopmonkey.dev/resources/location
+  baseURL: https://api.shopmonkey.cloud/v3
+  properties:
+  - url: https://shopmonkey.dev/overview
+    type: Documentation
+  - url: https://shopmonkey.dev/resources/location
+    type: APIReference
+  - url: openapi/shopmonkey-openapi.yml
+    type: OpenAPI
+  description: Update shop location data - address, contact details, timezone,
+    and display preferences - for companies operating multiple locations. Only a
+    PUT endpoint is explicitly documented; GET-by-id is modeled by convention.
+    Confirmed against shopmonkey.dev/resources/location.
+- aid: shopmonkey:shopmonkey-webhooks-api
+  name: Shopmonkey Webhooks API
+  tags:
+  - Webhooks
+  - Events
+  - Integrations
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://shopmonkey.dev/resources/webhook
+  baseURL: https://api.shopmonkey.cloud/v3
+  properties:
+  - url: https://shopmonkey.dev/overview
+    type: Documentation
+  - url: https://shopmonkey.dev/resources/webhook
+    type: APIReference
+  - url: openapi/shopmonkey-openapi.yml
+    type: OpenAPI
+  description: Create, retrieve, update, and delete webhook subscriptions that
+    push Shopmonkey events (scoped company-wide or per-location) to an external
+    URL, with error-state tracking. Confirmed against shopmonkey.dev/resources/webhook.
+common:
+- type: GitHubOrganization
+  url: https://github.com/shopmonkeyus
+- type: LinkedIn
+  url: https://www.linkedin.com/company/shopmonkey
+- type: Website
+  url: https://www.shopmonkey.io/
+- type: Documentation
+  url: https://shopmonkey.dev/overview
+- type: Plans
+  url: plans/shopmonkey-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/shopmonkey-rate-limits.yml
+- type: FinOps
+  url: finops/shopmonkey-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

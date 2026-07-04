@@ -1,0 +1,98 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Shopmonkey
+providerId: shopmonkey
+created: '2026-07-04'
+modified: '2026-07-04'
+reconciled: false
+tags:
+- Auto Repair
+- Shop Management
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Shopmonkey spend. Shopmonkey bills a flat monthly
+  per-shop subscription fee (Basic/Clever/Genius) that includes REST API and
+  webhook access, plus payment-processing fees on transactions run through
+  Shopmonkey's integrated payments. Multi-location and Enterprise Data
+  Streaming (EDS) are custom-quoted contract line items. There is no
+  separate per-call or per-token API meter to track; API cost governance is
+  really subscription-tier and payment-processing governance.
+notes: >-
+  Per-transaction payment-processing rates were not independently reconciled
+  (they vary by tier - Genius advertises "lower payment rates" - and by card
+  type); verify current rates with a Shopmonkey account rep.
+sources:
+- https://www.shopmonkey.io/pricing
+- https://shopmonkey.dev/overview
+- https://shopmonkey.dev/eds
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Shopmonkey
+serviceCategory: Vertical SaaS - Auto Repair Shop Management
+billingModel:
+  pricingCategory: Flat-Rate (per shop) + Usage (payments)
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Subscription
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: Shopmonkey
+  ServiceCategory: Vertical SaaS - Auto Repair Shop Management
+  ProviderName: Shopmonkey
+  PublisherName: Shopmonkey
+  InvoiceIssuerName: Shopmonkey
+  BillingCurrency: USD
+  ChargeCategory: Subscription
+  PricingCategory: Flat-Rate
+meters:
+- name: shop_subscription
+  description: Flat monthly per-shop subscription fee (Basic/Clever/Genius) that
+    includes REST API and webhook access.
+  unit: shops
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: payment_processing_volume
+  description: Dollar volume of customer payments processed through Shopmonkey's
+    integrated payments, billed at a per-transaction rate that improves at higher
+    plan tiers.
+  unit: usd
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: multi_shop_contract
+  description: Custom-quoted annual/contract charge for Multi-Shop and Enterprise
+    Data Streaming (EDS) customers.
+  unit: contracts
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Reconcile the monthly per-shop subscription invoice against active
+    locations/shops; review integrated-payment processing statements separately.
+- name: Allocation
+  description: Tag API keys and webhook destinations per integration/team so shop
+    or franchise cost centers can be attributed.
+- name: Optimization
+  description: Consolidate multi-location shops onto the Multi-Shop tier once the
+    per-shop subscription cost exceeds a custom quote; use integrated payments at
+    a higher tier (Genius) to lower processing rates if volume justifies the
+    subscription upgrade.
+- name: Accountability
+  description: Assign an owner per shop location for the Shopmonkey subscription
+    and API-key lifecycle; review payment-processing statements monthly.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

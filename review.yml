@@ -1,0 +1,155 @@
+aid: shopmonkey
+name: Shopmonkey
+review:
+  question: Does Shopmonkey expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-04'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Shopmonkey's own public API surface
+    (the v3 REST API at api.shopmonkey.cloud and the Webhooks resource) is
+    request/response REST plus outbound webhook push over plain HTTPS POST -
+    there is no server-push transport (WebSocket or SSE) on Shopmonkey's own
+    API to model. The Enterprise Data Streaming (EDS) product delivers
+    near-real-time change data capture, but it is a self-hosted server that
+    "pull[s] changes automatically" over an undisclosed, TLS-encrypted,
+    one-way connection to external sinks (Kafka, S3, Snowflake, SQL
+    databases, EventHub, file) - Shopmonkey's own EDS documentation and the
+    shopmonkeyus/eds GitHub README do not disclose or name the underlying
+    wire protocol, and neither mentions ws:// or wss://. Absent a documented
+    WebSocket (or SSE) surface, no AsyncAPI artifact was created.
+findings:
+  summary: |
+    Shopmonkey does not publish a documented public WebSocket API. Contrary
+    to the initial research premise for this catalog entry, Shopmonkey's
+    public developer API (developer.shopmonkey.io / shopmonkey.dev) is
+    explicitly REST, not GraphQL: shopmonkey.dev/overview states "The
+    Shopmonkey API is based on the REST standard," version v3, base URL
+    https://api.shopmonkey.cloud/v3. No GraphQL endpoint, schema,
+    introspection document, playground, query, mutation, or subscription is
+    referenced anywhere on Shopmonkey's developer site, support articles, or
+    GitHub organization (github.com/shopmonkeyus). Because no GraphQL
+    surface exists, this entry uses openapi/ (not graphql/) artifacts, and no
+    GraphQL subscription-based WebSocket transport exists either. Streaming
+    behavior is instead delivered two ways, both non-WebSocket: (1) Webhooks
+    - outbound HTTPS POST callbacks configured via the /webhook resource,
+    triggered on events, with error-state tracking; and (2) Enterprise Data
+    Streaming (EDS) - a free, open-source, self-hosted CDC server
+    (github.com/shopmonkeyus/eds) available to Enterprise/Multi-Shop
+    subscribers, which the docs describe only as "pull[ing] changes
+    automatically" over a one-way, fully-encrypted (TLS) connection from
+    Shopmonkey's network to the customer's network, landing near-real-time
+    (typically 100-250ms, up to 2-3s under load) into a customer-chosen sink
+    (Postgres, MySQL, SQL Server, Snowflake, S3-compatible storage, Kafka, or
+    Azure EventHub). The underlying subscription/transport protocol for EDS
+    is not named in any public document reviewed, so it cannot be confirmed
+    as WebSocket, gRPC-stream, NATS, or otherwise; it is explicitly one-way
+    (Shopmonkey to customer), which further distinguishes it from a
+    bidirectional WebSocket API even if the unstated transport happened to
+    use a WebSocket-family protocol internally.
+  graphqlFinding: |
+    GraphQL was NOT confirmed. Despite this catalog entry being scoped with
+    the assumption that Shopmonkey publishes a documented GraphQL API at
+    developer.shopmonkey.io, direct review of shopmonkey.dev (overview,
+    quickstart, and multiple /resources/* reference pages) and web search
+    found only a REST API. No graphql/ artifacts were produced for this
+    entry; openapi/shopmonkey-openapi.yml documents the confirmed REST
+    surface instead, per API Evangelist's endpointsConfirmed-vs-modeled
+    practice.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.shopmonkey.cloud/v3
+      documented: true
+    - protocol: Webhooks (outbound HTTPS POST)
+      scheme: https
+      note: Configured via the /webhook resource; Shopmonkey pushes event payloads to a customer-supplied URL. One-way, server-initiated, but plain HTTPS request/response per delivery, not a persistent WebSocket connection.
+      documented: true
+    - protocol: Enterprise Data Streaming (EDS)
+      scheme: tls (protocol unspecified)
+      note: Self-hosted CDC server; Shopmonkey's docs confirm TLS encryption and one-way (Shopmonkey-to-customer) flow but do not name the underlying subscription protocol. Not confirmed as WebSocket.
+      documented: partially
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No ws:// or wss:// endpoint is documented anywhere in Shopmonkey's developer docs, support articles, or the shopmonkeyus GitHub organization as of the review date.
+  endpointsConfirmed:
+    - GET  https://api.shopmonkey.cloud/v3/order
+    - POST https://api.shopmonkey.cloud/v3/order
+    - GET  https://api.shopmonkey.cloud/v3/order/{id}
+    - PUT  https://api.shopmonkey.cloud/v3/order/{id}
+    - PATCH https://api.shopmonkey.cloud/v3/order/{id}/{action}
+    - GET  https://api.shopmonkey.cloud/v3/order/{id}/pdf
+    - POST https://api.shopmonkey.cloud/v3/customer
+    - GET  https://api.shopmonkey.cloud/v3/customer/{id}
+    - POST https://api.shopmonkey.cloud/v3/customer/search
+    - POST https://api.shopmonkey.cloud/v3/customer/search-by-email
+    - POST https://api.shopmonkey.cloud/v3/customer/search-by-phone
+    - POST https://api.shopmonkey.cloud/v3/vehicle
+    - GET  https://api.shopmonkey.cloud/v3/vehicle/{id}
+    - GET  https://api.shopmonkey.cloud/v3/vehicle/vin/validate
+    - GET  https://api.shopmonkey.cloud/v3/part
+    - POST https://api.shopmonkey.cloud/v3/part/search
+    - POST https://api.shopmonkey.cloud/v3/part/compatible
+    - GET  https://api.shopmonkey.cloud/v3/appointment
+    - POST https://api.shopmonkey.cloud/v3/appointment
+    - POST https://api.shopmonkey.cloud/v3/appointment/search
+    - PATCH https://api.shopmonkey.cloud/v3/appointment/{id}/confirm
+    - PATCH https://api.shopmonkey.cloud/v3/appointment/{id}/cancel
+    - GET  https://api.shopmonkey.cloud/v3/user
+    - POST https://api.shopmonkey.cloud/v3/user
+    - GET  https://api.shopmonkey.cloud/v3/user/logged-in
+    - PUT  https://api.shopmonkey.cloud/v3/location/{id}
+    - POST https://api.shopmonkey.cloud/v3/webhook
+    - GET  https://api.shopmonkey.cloud/v3/webhook/{id}
+    - POST https://api.shopmonkey.cloud/v3/integration/payment/search
+    - POST https://api.shopmonkey.cloud/v3/integration/payment/manual/charge
+    - GET  https://api.shopmonkey.cloud/v3/order_shared/{publicId}/signed_invoice/latest
+  endpointsModeled:
+    - GET https://api.shopmonkey.cloud/v3/location/{id} (inferred by convention; only PUT is shown on the public docs page)
+    - Field-level request/response schemas in openapi/shopmonkey-openapi.yml beyond the documented Webhook resource (Order, Customer, Vehicle, Part, Appointment, User, Location, Payment, SignedInvoice) - endpoint paths are confirmed, full field lists were not exhaustively reconciled
+sources:
+  - url: https://shopmonkey.dev/overview
+    type: Documentation
+    note: States "The Shopmonkey API is based on the REST standard," version v3, base URL https://api.shopmonkey.cloud/v3; documents auth, error shape, and rate-limit headers.
+  - url: https://shopmonkey.dev/quickstart
+    type: Documentation
+    note: REST curl example against https://api.shopmonkey.cloud/v3/auth/api_key/status with a Bearer token.
+  - url: https://shopmonkey.dev/resources/order
+    type: APIReference
+    note: Work order endpoints and nested service/part/labor/fee/tire/subcontract/authorization/file/pdf sub-resources; order_shared signed_invoice/payment/pdf endpoints.
+  - url: https://shopmonkey.dev/resources/customer
+    type: APIReference
+  - url: https://shopmonkey.dev/resources/vehicle
+    type: APIReference
+  - url: https://shopmonkey.dev/resources/part
+    type: APIReference
+  - url: https://shopmonkey.dev/resources/payment
+    type: APIReference
+  - url: https://shopmonkey.dev/resources/appointment
+    type: APIReference
+  - url: https://shopmonkey.dev/resources/user
+    type: APIReference
+  - url: https://shopmonkey.dev/resources/location
+    type: APIReference
+  - url: https://shopmonkey.dev/resources/webhook
+    type: APIReference
+  - url: https://shopmonkey.dev/eds
+    type: Documentation
+    note: Enterprise Data Streaming overview; confirms TLS, one-way flow, ~100-250ms typical latency, no WebSocket mentioned.
+  - url: https://github.com/shopmonkeyus/eds
+    type: Repository
+    note: EDS server source and README; lists supported sink drivers (mysql, postgres, sqlserver, snowflake, s3, kafka, eventhub, file); no transport protocol named for the inbound subscription.
+  - url: https://support.shopmonkey.io/hc/en-us/articles/38743124485780-Shopmonkey-API
+    type: Documentation
+    note: Support-side description confirming REST, OAuth 2.0 Bearer token auth, and access to Customers/Orders/Users/Vehicles/Inventory.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket (or SSE) protocol surface exists on Shopmonkey's own public
+    API. No AsyncAPI document was authored. Because the original research
+    premise (a documented public GraphQL API) did not hold up under direct
+    review of shopmonkey.dev, this entry was built with openapi/ artifacts
+    against the confirmed REST v3 surface instead of graphql/ artifacts.

@@ -1,0 +1,1602 @@
+openapi: 3.0.3
+info:
+  title: Shopmonkey API
+  description: >-
+    The Shopmonkey API is a REST API (current version v3) that lets auto,
+    tire, and powersports repair shops integrate their Shopmonkey account -
+    Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments,
+    Appointments, Employees (Users), Locations, and Webhooks - with other
+    business systems. Authentication is a Bearer API key generated in the
+    Shopmonkey web app under Settings > Integration > API Keys. Error
+    responses return a JSON body with success, code, message, and
+    documentation_url fields. Rate limiting returns HTTP 429 with
+    Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute
+    headers; exact numeric limits are account-specific and not published.
+    Paths and methods below are confirmed against the public Shopmonkey
+    Developer docs at shopmonkey.dev; request/response schemas are modeled
+    (best-effort) from the documented resource fields where full detail was
+    not independently reconciled field-by-field.
+  version: v3
+  contact:
+    name: Shopmonkey
+    url: https://shopmonkey.dev
+externalDocs:
+  description: Shopmonkey Developer documentation
+  url: https://shopmonkey.dev/overview
+servers:
+  - url: https://api.shopmonkey.cloud/v3
+    description: Shopmonkey production API (v3)
+security:
+  - bearerAuth: []
+tags:
+  - name: Work Orders
+    description: Create and manage repair orders, order line items (services, parts, labor, fees, tires, subcontracts), authorizations, files, and PDFs.
+  - name: Customers
+    description: Create, update, search, and manage customer records, emails, and phone numbers.
+  - name: Vehicles
+    description: Create, update, and look up vehicles, VIN/plate validation, year/make/model data, mileage, and tire-pressure logs.
+  - name: Inventory & Parts
+    description: Search the parts catalog, find compatible parts, and manage line-item assignments of parts/tires/labor.
+  - name: Invoices & Payments
+    description: Shared (customer-facing) invoices/PDFs on an order, and manual payment and refund entries.
+  - name: Appointments
+    description: Schedule, search, confirm, cancel, and update appointments.
+  - name: Employees
+    description: Manage Shopmonkey users (employees), roles, and the authenticated user's own profile.
+  - name: Locations
+    description: Manage shop location details for a multi-location company.
+  - name: Webhooks
+    description: Register and manage webhook subscriptions for Shopmonkey events.
+paths:
+  /order:
+    get:
+      operationId: listOrders
+      tags: [Work Orders]
+      summary: Find all Orders
+      description: 'CONFIRMED endpoint (shopmonkey.dev/resources/order). Lists work orders with filtering, pagination, and sorting.'
+      responses:
+        '200':
+          description: A list of orders.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createOrder
+      tags: [Work Orders]
+      summary: Create one Order
+      description: CONFIRMED endpoint. Creates a new work order for a customer/vehicle at a location.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+      responses:
+        '200':
+          description: The created order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /order/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getOrder
+      tags: [Work Orders]
+      summary: Find one Order by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateOrder
+      tags: [Work Orders]
+      summary: Update one Order by id
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+      responses:
+        '200':
+          description: The updated order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /order/{id}/{action}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - name: action
+        in: path
+        required: true
+        schema:
+          type: string
+        description: Status transition action (e.g. approve, close, void) applied to the order.
+    patch:
+      operationId: transitionOrder
+      tags: [Work Orders]
+      summary: Apply a status action to an Order
+      description: CONFIRMED endpoint (path shape). Applies a workflow action/status transition to an order.
+      responses:
+        '200':
+          description: The updated order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /order/{id}/move:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      operationId: moveOrder
+      tags: [Work Orders]
+      summary: Move an Order
+      description: CONFIRMED endpoint. Moves an order between workflow columns/statuses.
+      responses:
+        '200':
+          description: The updated order.
+  /order/{id}/calculated_pricing:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      operationId: calculateOrderPricing
+      tags: [Work Orders]
+      summary: Calculate pricing for an Order
+      description: CONFIRMED endpoint. Returns recalculated pricing totals for the order.
+      responses:
+        '200':
+          description: Calculated pricing.
+  /order/{id}/authorization:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listOrderAuthorizations
+      tags: [Work Orders]
+      summary: Find Order authorizations
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Order authorizations.
+    post:
+      operationId: createOrderAuthorization
+      tags: [Work Orders]
+      summary: Request an Order authorization
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Created authorization.
+  /order/{id}/authorization/{authorizationId}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - name: authorizationId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      operationId: updateOrderAuthorization
+      tags: [Work Orders]
+      summary: Update an Order authorization
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated authorization.
+  /order/{id}/file:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      operationId: addOrderFile
+      tags: [Work Orders]
+      summary: Attach a file to an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Attached file.
+  /order/{id}/file/{fileId}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - name: fileId
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      operationId: deleteOrderFile
+      tags: [Work Orders]
+      summary: Remove a file from an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /order/{id}/pdf:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getOrderPdf
+      tags: [Work Orders]
+      summary: Get the Order as a PDF
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: PDF binary.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /order/{orderId}/service:
+    parameters:
+      - $ref: '#/components/parameters/OrderId'
+    get:
+      operationId: listOrderServices
+      tags: [Work Orders]
+      summary: Find all Services on an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Order services.
+    post:
+      operationId: addOrderService
+      tags: [Work Orders]
+      summary: Add a Service to an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Created service.
+  /order/{orderId}/service/{id}:
+    parameters:
+      - $ref: '#/components/parameters/OrderId'
+      - $ref: '#/components/parameters/Id'
+    put:
+      operationId: updateOrderService
+      tags: [Work Orders]
+      summary: Update a Service on an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated service.
+    delete:
+      operationId: deleteOrderService
+      tags: [Work Orders]
+      summary: Remove a Service from an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /order/{orderId}/part:
+    parameters:
+      - $ref: '#/components/parameters/OrderId'
+    get:
+      operationId: listOrderParts
+      tags: [Work Orders]
+      summary: Find all Parts on an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Order parts.
+    post:
+      operationId: addOrderPart
+      tags: [Work Orders]
+      summary: Add a Part to a Service on an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Created part line item.
+  /order/{orderId}/part_bulk:
+    parameters:
+      - $ref: '#/components/parameters/OrderId'
+    put:
+      operationId: bulkUpdateOrderParts
+      tags: [Work Orders]
+      summary: Update Bulk Parts for an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated parts.
+  /order_shared/{publicId}/pdf:
+    parameters:
+      - $ref: '#/components/parameters/PublicId'
+    get:
+      operationId: getSharedOrderPdf
+      tags: [Invoices & Payments]
+      summary: Get the customer-shared Order as a PDF
+      description: CONFIRMED endpoint. Customer-facing shared-link surface for an order PDF.
+      responses:
+        '200':
+          description: PDF binary.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /order_shared/{publicId}/signed_invoice:
+    parameters:
+      - $ref: '#/components/parameters/PublicId'
+    get:
+      operationId: listSignedInvoices
+      tags: [Invoices & Payments]
+      summary: Find signed invoices for a shared Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Signed invoices.
+  /order_shared/{publicId}/signed_invoice/latest:
+    parameters:
+      - $ref: '#/components/parameters/PublicId'
+    get:
+      operationId: getLatestSignedInvoice
+      tags: [Invoices & Payments]
+      summary: Get the latest signed invoice for a shared Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The latest signed invoice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignedInvoice'
+  /order_shared/{publicId}/signed_invoice/{id}/pdf:
+    parameters:
+      - $ref: '#/components/parameters/PublicId'
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getSignedInvoicePdf
+      tags: [Invoices & Payments]
+      summary: Get a signed invoice as a PDF
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: PDF binary.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /order_shared/{publicId}/payment:
+    parameters:
+      - $ref: '#/components/parameters/PublicId'
+    get:
+      operationId: listSharedOrderPayments
+      tags: [Invoices & Payments]
+      summary: Find payments recorded against a shared Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Payments.
+  /integration/payment/search:
+    post:
+      operationId: searchPayments
+      tags: [Invoices & Payments]
+      summary: Search for Payment Entries
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Matching payments.
+  /integration/payment/manual/charge:
+    post:
+      operationId: recordManualPayment
+      tags: [Invoices & Payments]
+      summary: Record a payment manually
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentInput'
+      responses:
+        '200':
+          description: The recorded payment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+  /integration/payment/manual/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    delete:
+      operationId: deleteManualPayment
+      tags: [Invoices & Payments]
+      summary: Remove a manually-recorded payment
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /integration/payment/manual/refund:
+    post:
+      operationId: createManualRefund
+      tags: [Invoices & Payments]
+      summary: Create one Manual Refund
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The created refund.
+  /integration/payment/manual/refund/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      operationId: updateManualRefund
+      tags: [Invoices & Payments]
+      summary: Update one Payment/Refund by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated refund.
+  /integration/payment/manual/refund/{id}/download-pdf:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: downloadRefundPdf
+      tags: [Invoices & Payments]
+      summary: Download a refund receipt as PDF
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: PDF binary.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /customer:
+    post:
+      operationId: createCustomer
+      tags: [Customers]
+      summary: Create a new customer record
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerInput'
+      responses:
+        '200':
+          description: The created customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+  /customer/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getCustomer
+      tags: [Customers]
+      summary: "Fetch a specific customer's details"
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested customer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+    put:
+      operationId: updateCustomer
+      tags: [Customers]
+      summary: Update customer information
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The updated customer.
+    patch:
+      operationId: softDeleteCustomer
+      tags: [Customers]
+      summary: Soft delete a customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The soft-deleted customer.
+  /customer/search:
+    post:
+      operationId: searchCustomers
+      tags: [Customers]
+      summary: Search customer entities
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Matching customers.
+  /customer/search-by-email:
+    post:
+      operationId: searchCustomersByEmail
+      tags: [Customers]
+      summary: Search customers by email address
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Matching customers.
+  /customer/search-by-phone:
+    post:
+      operationId: searchCustomersByPhone
+      tags: [Customers]
+      summary: Search customers by phone number
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Matching customers.
+  /customer/{id}/vehicle:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listCustomerVehicles
+      tags: [Customers, Vehicles]
+      summary: Retrieve vehicles linked to a customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Vehicles owned by the customer.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Vehicle'
+  /customer/{id}/order:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listCustomerOrders
+      tags: [Customers, Work Orders]
+      summary: Retrieve orders associated with a specific customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Orders for the customer.
+  /customer/{parentId}/deferred_service:
+    parameters:
+      - name: parentId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: listCustomerDeferredServices
+      tags: [Customers]
+      summary: Find all Deferred Services by Customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deferred services.
+  /customer/{id}/email:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      operationId: addCustomerEmail
+      tags: [Customers]
+      summary: Create a new email for the specified customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Added email.
+  /customer/{id}/email/{emailId}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - name: emailId
+        in: path
+        required: true
+        schema:
+          type: string
+    put:
+      operationId: updateCustomerEmail
+      tags: [Customers]
+      summary: Update the specified email for a customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated email.
+    delete:
+      operationId: deleteCustomerEmail
+      tags: [Customers]
+      summary: Delete the specified email for a customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /customer/{id}/phone:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      operationId: updateCustomerPhone
+      tags: [Customers]
+      summary: "Update a customer's phone number"
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated phone.
+  /customer/{id}/phone/{phoneId}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - name: phoneId
+        in: path
+        required: true
+        schema:
+          type: string
+    delete:
+      operationId: deleteCustomerPhone
+      tags: [Customers]
+      summary: Remove a phone number from a customer record
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /vehicle:
+    post:
+      operationId: createVehicle
+      tags: [Vehicles]
+      summary: Create a new Vehicle record
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleInput'
+      responses:
+        '200':
+          description: The created vehicle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+  /vehicle/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getVehicle
+      tags: [Vehicles]
+      summary: Retrieve a single Vehicle by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested vehicle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+    put:
+      operationId: updateVehicle
+      tags: [Vehicles]
+      summary: Update an existing Vehicle record
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The updated vehicle.
+    patch:
+      operationId: softDeleteVehicle
+      tags: [Vehicles]
+      summary: Soft-delete a Vehicle
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The soft-deleted vehicle.
+  /vehicle/{id}/link:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      operationId: linkVehicleToCustomer
+      tags: [Vehicles]
+      summary: Associate a Vehicle with a customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Linked vehicle.
+  /vehicle/years:
+    get:
+      operationId: listVehicleYears
+      tags: [Vehicles]
+      summary: Retrieve available vehicle production years
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Years.
+  /vehicle/makes:
+    get:
+      operationId: listVehicleMakes
+      tags: [Vehicles]
+      summary: List vehicle manufacturers
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Makes.
+  /vehicle/models:
+    get:
+      operationId: listVehicleModels
+      tags: [Vehicles]
+      summary: Fetch available vehicle models
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Models.
+  /vehicle/submodels:
+    get:
+      operationId: listVehicleSubmodels
+      tags: [Vehicles]
+      summary: Get vehicle submodel variations
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Submodels.
+  /vehicle/ymm:
+    get:
+      operationId: searchVehicleByYmm
+      tags: [Vehicles]
+      summary: Search vehicle year/make/model combinations
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Matching YMM combinations.
+  /vehicle/vin/validate:
+    get:
+      operationId: validateVin
+      tags: [Vehicles]
+      summary: Validate a VIN number
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: VIN validation result.
+  /vehicle/license-plate/validate:
+    get:
+      operationId: validateLicensePlate
+      tags: [Vehicles]
+      summary: Validate a license plate
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: License plate validation result.
+  /vehicle/{id}/orders:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listVehicleOrders
+      tags: [Vehicles, Work Orders]
+      summary: List service orders for a vehicle
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Orders for the vehicle.
+  /vehicle/{id}/deferred-services:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listVehicleDeferredServices
+      tags: [Vehicles]
+      summary: List pending/deferred service items for a vehicle
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deferred services.
+  /vehicle/{id}/owners:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listVehicleOwners
+      tags: [Vehicles]
+      summary: Retrieve vehicle ownership history
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Owners.
+    put:
+      operationId: updateVehicleOwners
+      tags: [Vehicles]
+      summary: Update owner information
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated owners.
+    delete:
+      operationId: removeVehicleOwner
+      tags: [Vehicles]
+      summary: Remove an owner record
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /vehicle/{id}/mileage-logs:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listVehicleMileageLogs
+      tags: [Vehicles]
+      summary: Retrieve mileage records
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Mileage logs.
+    post:
+      operationId: addVehicleMileageLog
+      tags: [Vehicles]
+      summary: Create a mileage log entry
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Created mileage log.
+    put:
+      operationId: updateVehicleMileageLog
+      tags: [Vehicles]
+      summary: Modify a mileage record
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated mileage log.
+    delete:
+      operationId: deleteVehicleMileageLog
+      tags: [Vehicles]
+      summary: Delete a mileage record
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /vehicle/{id}/tire-pressure-logs:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listTirePressureLogs
+      tags: [Vehicles]
+      summary: Retrieve tire pressure records
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Tire pressure logs.
+    post:
+      operationId: addTirePressureLog
+      tags: [Vehicles]
+      summary: Record tire pressure data
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Created tire pressure log.
+    delete:
+      operationId: deleteTirePressureLog
+      tags: [Vehicles]
+      summary: Remove tire pressure records
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /part:
+    get:
+      operationId: listParts
+      tags: [Inventory & Parts]
+      summary: Find ALL Parts
+      description: CONFIRMED endpoint. Retrieves the shop's parts inventory.
+      responses:
+        '200':
+          description: Parts.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Part'
+  /part/summary:
+    get:
+      operationId: getPartsSummary
+      tags: [Inventory & Parts]
+      summary: Find ALL Parts Summary
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Parts summary.
+  /part/search:
+    post:
+      operationId: searchParts
+      tags: [Inventory & Parts]
+      summary: Search for specific parts by criteria
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Matching parts.
+  /part/compatible:
+    post:
+      operationId: findCompatibleParts
+      tags: [Inventory & Parts]
+      summary: Find Compatible Options
+      description: CONFIRMED endpoint. Locates parts compatible with a given vehicle.
+      responses:
+        '200':
+          description: Compatible parts.
+  /line_item_assignment:
+    get:
+      operationId: listLineItemAssignments
+      tags: [Inventory & Parts]
+      summary: Find line item assignments to parts and tires
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Line item assignments.
+  /line_item_assignment/bulk:
+    put:
+      operationId: bulkAssignLineItems
+      tags: [Inventory & Parts]
+      summary: Bulk-assign line items to parts, tires, or labor
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated assignments.
+  /appointment:
+    get:
+      operationId: listAppointments
+      tags: [Appointments]
+      summary: Find all Appointments
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Appointments.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Appointment'
+    post:
+      operationId: createAppointment
+      tags: [Appointments]
+      summary: Create a new appointment
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentInput'
+      responses:
+        '200':
+          description: The created appointment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+  /appointment/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getAppointment
+      tags: [Appointments]
+      summary: Find one Appointment by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested appointment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+    put:
+      operationId: updateAppointment
+      tags: [Appointments]
+      summary: Update one appointment
+      description: CONFIRMED endpoint. Supports recurring appointment modifications.
+      responses:
+        '200':
+          description: The updated appointment.
+    delete:
+      operationId: deleteAppointment
+      tags: [Appointments]
+      summary: Remove an appointment
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /appointment/search:
+    post:
+      operationId: searchAppointments
+      tags: [Appointments]
+      summary: Search for appointments
+      description: CONFIRMED endpoint. Supports date range, customer, order, and technician filters.
+      responses:
+        '200':
+          description: Matching appointments.
+  /appointment/{id}/confirm:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    patch:
+      operationId: confirmAppointment
+      tags: [Appointments]
+      summary: Confirm an Appointment
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The confirmed appointment.
+  /appointment/{id}/cancel:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    patch:
+      operationId: cancelAppointment
+      tags: [Appointments]
+      summary: Cancel an Appointment
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The cancelled appointment.
+  /user:
+    get:
+      operationId: listUsers
+      tags: [Employees]
+      summary: Find all users
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+    post:
+      operationId: createUser
+      tags: [Employees]
+      summary: Create one User
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '200':
+          description: The created user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /user/logged-in:
+    get:
+      operationId: getLoggedInUser
+      tags: [Employees]
+      summary: Retrieve currently authenticated user details
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The authenticated user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /user/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getUser
+      tags: [Employees]
+      summary: Find one User by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      operationId: updateUser
+      tags: [Employees]
+      summary: Update one User by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The updated user.
+  /user/{id}/password:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      operationId: changeUserPassword
+      tags: [Employees]
+      summary: Change user password
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Password changed.
+  /user/{userId}/role:
+    parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getUserRole
+      tags: [Employees]
+      summary: Find all User Roles, and the user's current role
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Roles.
+    put:
+      operationId: assignUserRole
+      tags: [Employees]
+      summary: Assign the User Type/role
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated role assignment.
+  /location/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getLocation
+      tags: [Locations]
+      summary: Retrieve a shop Location by id
+      description: MODELED endpoint - documented resource, GET-by-id inferred from the standard Shopmonkey resource pattern; only PUT is explicitly shown on the public docs page.
+      responses:
+        '200':
+          description: The requested location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+    put:
+      operationId: updateLocation
+      tags: [Locations]
+      summary: Update Location data
+      description: 'CONFIRMED endpoint (shopmonkey.dev/resources/location). Updates address, contact details, timezone, and display preferences for a shop location.'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationInput'
+      responses:
+        '200':
+          description: The updated location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+  /webhook:
+    post:
+      operationId: createWebhook
+      tags: [Webhooks]
+      summary: Create a new webhook
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '200':
+          description: The created webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+  /webhook/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getWebhook
+      tags: [Webhooks]
+      summary: Retrieve a specific webhook by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+    put:
+      operationId: updateWebhook
+      tags: [Webhooks]
+      summary: Update an existing webhook
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The updated webhook.
+    delete:
+      operationId: deleteWebhook
+      tags: [Webhooks]
+      summary: Remove a webhook
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        API key generated in the Shopmonkey web app under Settings >
+        Integration > API Keys, sent as `Authorization: Bearer <token>`.
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
+    OrderId:
+      name: orderId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Parent order identifier.
+    PublicId:
+      name: publicId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Public (customer-shareable) order identifier used on order_shared endpoints.
+  responses:
+    Unauthorized:
+      description: Authentication failed or API key is invalid/expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          description: Alphanumeric error code (e.g. BOFF-97d5f9).
+        message:
+          type: string
+        documentation_url:
+          type: string
+      description: MODELED from the documented error shape on shopmonkey.dev/overview.
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        publicId:
+          type: string
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        locationId:
+          type: string
+        status:
+          type: string
+        number:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+      description: MODELED - core fields inferred from documented relationships (customer/vehicle/location) and search/list endpoints; not a field-complete schema.
+    OrderInput:
+      type: object
+      required: [customerId, vehicleId, locationId]
+      properties:
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        locationId:
+          type: string
+      additionalProperties: true
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        emails:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              email:
+                type: string
+        phones:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              number:
+                type: string
+      additionalProperties: true
+      description: MODELED from documented customer email/phone sub-resources.
+    CustomerInput:
+      type: object
+      required: [firstName, lastName]
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+      additionalProperties: true
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: string
+        vin:
+          type: string
+        year:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        submodel:
+          type: string
+        licensePlate:
+          type: string
+      additionalProperties: true
+      description: MODELED from documented vehicle lookup endpoints (years/makes/models/submodels/vin/ymm).
+    VehicleInput:
+      type: object
+      properties:
+        vin:
+          type: string
+        year:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        customerId:
+          type: string
+      additionalProperties: true
+    Part:
+      type: object
+      properties:
+        id:
+          type: string
+        partNumber:
+          type: string
+        description:
+          type: string
+        quantityOnHand:
+          type: number
+        cost:
+          type: number
+        price:
+          type: number
+      additionalProperties: true
+      description: MODELED from the documented parts search/compatible/summary endpoints.
+    Appointment:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        technicianId:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        confirmed:
+          type: boolean
+        cancelled:
+          type: boolean
+      additionalProperties: true
+    AppointmentInput:
+      type: object
+      required: [startDate, endDate]
+      properties:
+        orderId:
+          type: string
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        technicianId:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        roleId:
+          type: string
+      additionalProperties: true
+    UserInput:
+      type: object
+      required: [firstName, lastName, email]
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        roleId:
+          type: string
+      additionalProperties: true
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        timezone:
+          type: string
+      additionalProperties: true
+      description: MODELED from the documented "address, contact details, timezone, and display preferences" update fields.
+    LocationInput:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        timezone:
+          type: string
+      additionalProperties: true
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        amount:
+          type: number
+        method:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+    PaymentInput:
+      type: object
+      required: [orderId, amount]
+      properties:
+        orderId:
+          type: string
+        amount:
+          type: number
+        method:
+          type: string
+      additionalProperties: true
+    SignedInvoice:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        signedDate:
+          type: string
+          format: date-time
+        signatureUrl:
+          type: string
+      additionalProperties: true
+      description: MODELED from the documented order_shared signed_invoice surface.
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+        triggers:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+        version:
+          type: string
+        locationId:
+          type: string
+        error:
+          type: boolean
+        errorMessage:
+          type: string
+        errorDate:
+          type: string
+          format: date-time
+      description: CONFIRMED field shape from shopmonkey.dev/resources/webhook.
+    WebhookInput:
+      type: object
+      required: [name, url]
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        triggers:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+        secret:
+          type: string
+        locationId:
+          type: string

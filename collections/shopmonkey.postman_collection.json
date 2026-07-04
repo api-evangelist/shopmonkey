@@ -1,0 +1,2780 @@
+{
+  "info": {
+    "_postman_id": "2fdc7966-c6e8-40f3-b410-74369c05184b",
+    "name": "Shopmonkey API",
+    "description": "REST API (v3) for Shopmonkey shop management - Work Orders, Customers, Vehicles, Inventory/Parts, Invoices/Payments, Appointments, Employees, Locations, and Webhooks. Base URL https://api.shopmonkey.cloud/v3. Confirmed against shopmonkey.dev.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "id": "f8d20444-d428-4e95-8f9a-e76775f205a1",
+      "name": "Work Orders",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "441d0fd0-61e8-4490-b7aa-c0169bb9fd12",
+          "name": "Find all Orders",
+          "request": {
+            "name": "Find all Orders",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "133dda8f-f006-4879-aec1-7e03e0fb02da",
+          "name": "Create one Order",
+          "request": {
+            "name": "Create one Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"<string>\",\n  \"vehicleId\": \"<string>\",\n  \"locationId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a5d10508-cde2-4b75-97e5-276d021cf8fb",
+          "name": "Find one Order by id",
+          "request": {
+            "name": "Find one Order by id",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "54899f6a-cd42-45f5-bda0-8efa64f9dddb",
+          "name": "Update one Order by id",
+          "request": {
+            "name": "Update one Order by id",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "95147590-b430-4161-bf55-7d3aabfcc340",
+          "name": "Apply a status action to an Order",
+          "request": {
+            "name": "Apply a status action to an Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":id",
+                ":action"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "ed9b301e-972f-4e6b-b076-2b98768e71b0",
+          "name": "Move an Order",
+          "request": {
+            "name": "Move an Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":id",
+                "move"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "a970d0a6-8793-4ea2-81d9-6ce1c52dd5fe",
+          "name": "Calculate pricing for an Order",
+          "request": {
+            "name": "Calculate pricing for an Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":id",
+                "calculated_pricing"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "0afd37ae-5275-4ce0-b20e-b9c509d6fd1e",
+          "name": "Get the Order as a PDF",
+          "request": {
+            "name": "Get the Order as a PDF",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":id",
+                "pdf"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "e9033749-4800-4d74-b65f-dca5efad6cbd",
+          "name": "Find all Services on an Order",
+          "request": {
+            "name": "Find all Services on an Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":orderId",
+                "service"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "fd383d92-e1d4-414b-8503-940eb3b7d786",
+          "name": "Add a Service to an Order",
+          "request": {
+            "name": "Add a Service to an Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":orderId",
+                "service"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "72d77050-2f06-4cc2-978b-3c725b8d216f",
+          "name": "Find all Parts on an Order",
+          "request": {
+            "name": "Find all Parts on an Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":orderId",
+                "part"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "b9c3b069-922d-49ba-8498-f75b236e64cb",
+          "name": "Add a Part to a Service on an Order",
+          "request": {
+            "name": "Add a Part to a Service on an Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":orderId",
+                "part"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"partId\": \"<string>\",\n  \"quantity\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "0b1ef149-e91a-4d95-b93b-434068a85aa9",
+          "name": "Update Bulk Parts for an Order",
+          "request": {
+            "name": "Update Bulk Parts for an Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order",
+                ":orderId",
+                "part_bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parts\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "bd2f7dd7-c332-4a67-9d1f-24f8623f4dc4",
+      "name": "Customers",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1d3e3fe7-60f8-4fb3-933c-9e7483dda0b3",
+          "name": "Create a new customer record",
+          "request": {
+            "name": "Create a new customer record",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "535ed52b-4958-4fae-9284-b2620ce10fd2",
+          "name": "Fetch a specific customer's details",
+          "request": {
+            "name": "Fetch a specific customer's details",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "907ba92d-a9b3-4905-a7ab-ad7d2cc1c1cf",
+          "name": "Update customer information",
+          "request": {
+            "name": "Update customer information",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "5c06dfa7-f964-43d0-97b0-11cd2e8f2479",
+          "name": "Soft delete a customer",
+          "request": {
+            "name": "Soft delete a customer",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "b78be92b-face-4407-ba02-0696072ff3fe",
+          "name": "Search customer entities",
+          "request": {
+            "name": "Search customer entities",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "dfc27541-305e-49a0-9c03-b0e5c7016806",
+          "name": "Search customers by email address",
+          "request": {
+            "name": "Search customers by email address",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer",
+                "search-by-email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "8e7c0dd3-b01b-453e-8639-01b7e65aea52",
+          "name": "Search customers by phone number",
+          "request": {
+            "name": "Search customers by phone number",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer",
+                "search-by-phone"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "ccdcceb5-7a68-417e-a3e1-3d6a9a46292b",
+          "name": "Retrieve vehicles linked to a customer",
+          "request": {
+            "name": "Retrieve vehicles linked to a customer",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer",
+                ":id",
+                "vehicle"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "120a8f75-a35a-4f05-aa35-e9d09af8f391",
+          "name": "Retrieve orders associated with a specific customer",
+          "request": {
+            "name": "Retrieve orders associated with a specific customer",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer",
+                ":id",
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "9ed75d50-6fc2-48c8-a0b9-5233c94ab4d9",
+          "name": "Create a new email for the specified customer",
+          "request": {
+            "name": "Create a new email for the specified customer",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer",
+                ":id",
+                "email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "260a59a4-b386-4d5c-b5d6-abcaf89a2766",
+          "name": "Update a customer's phone number",
+          "request": {
+            "name": "Update a customer's phone number",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "customer",
+                ":id",
+                "phone"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"number\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "c53e78d9-2c04-4409-b4af-3ec4cf422743",
+      "name": "Vehicles",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b301ed51-d854-479f-b02e-ccbf8362933a",
+          "name": "Create a new Vehicle record",
+          "request": {
+            "name": "Create a new Vehicle record",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vin\": \"<string>\",\n  \"customerId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "665c4290-9770-4006-ad21-2dda182921d5",
+          "name": "Retrieve a single Vehicle by id",
+          "request": {
+            "name": "Retrieve a single Vehicle by id",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "b03f357f-5caa-4e9a-8409-477e1b3f517b",
+          "name": "Update an existing Vehicle record",
+          "request": {
+            "name": "Update an existing Vehicle record",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mileage\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "390acd70-d426-4ec1-834b-2df29b9422b3",
+          "name": "Associate a Vehicle with a customer",
+          "request": {
+            "name": "Associate a Vehicle with a customer",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle",
+                ":id",
+                "link"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "5082ef20-bd26-4488-b232-4805728367ed",
+          "name": "Retrieve available vehicle production years",
+          "request": {
+            "name": "Retrieve available vehicle production years",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle",
+                "years"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "e1769a9f-e8cc-4fdd-a78f-9a37c5f72fe1",
+          "name": "List vehicle manufacturers",
+          "request": {
+            "name": "List vehicle manufacturers",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle",
+                "makes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "f4feb68e-4565-4fe6-9d57-4d07326bc9cd",
+          "name": "Fetch available vehicle models",
+          "request": {
+            "name": "Fetch available vehicle models",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle",
+                "models"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "dcddd0da-1ede-4b4d-bf54-568e3a14a5fb",
+          "name": "Validate a VIN number",
+          "request": {
+            "name": "Validate a VIN number",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle",
+                "vin",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "vin",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "cd98045f-975f-43f6-bc8c-a4bc1d69eace",
+          "name": "Validate a license plate",
+          "request": {
+            "name": "Validate a license plate",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle",
+                "license-plate",
+                "validate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "plate",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "34120fb9-f8a5-48bb-8424-29131770ddfe",
+          "name": "List service orders for a vehicle",
+          "request": {
+            "name": "List service orders for a vehicle",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle",
+                ":id",
+                "orders"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "7f42efa8-3b1b-47d2-86ac-36516f78ab7b",
+          "name": "Retrieve mileage records",
+          "request": {
+            "name": "Retrieve mileage records",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "vehicle",
+                ":id",
+                "mileage-logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "d19d6765-8e1f-4ea3-b69e-3dd3a9ad3a47",
+      "name": "Inventory & Parts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "03d982c0-ecec-4abb-a026-e39eff8b3dfb",
+          "name": "Find ALL Parts",
+          "request": {
+            "name": "Find ALL Parts",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "part"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "4b0854fc-1064-4b27-8887-057745a36d2b",
+          "name": "Find ALL Parts Summary",
+          "request": {
+            "name": "Find ALL Parts Summary",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "part",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "d09ce6d5-3d07-4015-be46-3bce0146cc5a",
+          "name": "Search for specific parts by criteria",
+          "request": {
+            "name": "Search for specific parts by criteria",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "part",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "2e5ce5dc-9edf-43c8-aebc-9a0f8c1ece4f",
+          "name": "Find Compatible Options",
+          "request": {
+            "name": "Find Compatible Options",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "part",
+                "compatible"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"vehicleId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "bf3df7f7-b604-49d0-a032-dcc055cbf8f6",
+          "name": "Find line item assignments to parts and tires",
+          "request": {
+            "name": "Find line item assignments to parts and tires",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "line_item_assignment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "5bb915cd-3aae-4fa8-aae5-c62fec76fa35",
+          "name": "Bulk-assign line items to parts, tires, or labor",
+          "request": {
+            "name": "Bulk-assign line items to parts, tires, or labor",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "line_item_assignment",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assignments\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "ba540296-4713-4720-b278-6be40949d697",
+      "name": "Invoices & Payments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3f63b3b9-af45-485f-8f7c-8c86b7052426",
+          "name": "Get the customer-shared Order as a PDF",
+          "request": {
+            "name": "Get the customer-shared Order as a PDF",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order_shared",
+                ":publicId",
+                "pdf"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "56c89f53-874b-4dc6-a70c-99bca7d31ec7",
+          "name": "Find signed invoices for a shared Order",
+          "request": {
+            "name": "Find signed invoices for a shared Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order_shared",
+                ":publicId",
+                "signed_invoice"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "ef983bde-409a-4a59-97bc-ccd4620b0ece",
+          "name": "Get the latest signed invoice for a shared Order",
+          "request": {
+            "name": "Get the latest signed invoice for a shared Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order_shared",
+                ":publicId",
+                "signed_invoice",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "0676b45f-d4a1-489d-b21d-8a39b756e67d",
+          "name": "Find payments recorded against a shared Order",
+          "request": {
+            "name": "Find payments recorded against a shared Order",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "order_shared",
+                ":publicId",
+                "payment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "e3419a0e-a91b-4b97-94a6-922646cbb6de",
+          "name": "Search for Payment Entries",
+          "request": {
+            "name": "Search for Payment Entries",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "integration",
+                "payment",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "3b4b6ef6-f30c-4451-983b-e842d448cfb4",
+          "name": "Record a payment manually",
+          "request": {
+            "name": "Record a payment manually",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "integration",
+                "payment",
+                "manual",
+                "charge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"<string>\",\n  \"amount\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "0ee44545-57ae-47b3-b468-51137f7502d2",
+          "name": "Remove a manually-recorded payment",
+          "request": {
+            "name": "Remove a manually-recorded payment",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "integration",
+                "payment",
+                "manual",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "f30e74b1-8e79-494d-9957-17254b1b4fec",
+          "name": "Create one Manual Refund",
+          "request": {
+            "name": "Create one Manual Refund",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "integration",
+                "payment",
+                "manual",
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"paymentId\": \"<string>\",\n  \"amount\": 0\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "6f7c201e-d6e9-4479-afb2-58e07aebbbbe",
+          "name": "Download a refund receipt as PDF",
+          "request": {
+            "name": "Download a refund receipt as PDF",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "integration",
+                "payment",
+                "manual",
+                "refund",
+                ":id",
+                "download-pdf"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "7f7c9d4b-05fc-4fe8-b9c1-5dd050dc92b2",
+      "name": "Appointments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fdcaa9ed-ab52-443c-8917-1a0805e1455a",
+          "name": "Find all Appointments",
+          "request": {
+            "name": "Find all Appointments",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "appointment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "70d7f331-34f6-4d70-a680-fb68abf19af1",
+          "name": "Create a new appointment",
+          "request": {
+            "name": "Create a new appointment",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "appointment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerId\": \"<string>\",\n  \"vehicleId\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "bb453f4c-5277-4d7e-a90c-099015d715c7",
+          "name": "Find one Appointment by id",
+          "request": {
+            "name": "Find one Appointment by id",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "appointment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "50913ce3-cab3-4358-9513-b224c1593a7f",
+          "name": "Update one appointment",
+          "request": {
+            "name": "Update one appointment",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "appointment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startDate\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "951de928-c93e-4d3b-952c-797488aa8e5b",
+          "name": "Remove an appointment",
+          "request": {
+            "name": "Remove an appointment",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "appointment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "7c3f1109-5ce0-4350-a5d1-ac98bf1cc96c",
+          "name": "Search for appointments",
+          "request": {
+            "name": "Search for appointments",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "appointment",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "44c7b8a1-96fb-4389-8526-1c6900f95f40",
+          "name": "Confirm an Appointment",
+          "request": {
+            "name": "Confirm an Appointment",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "appointment",
+                ":id",
+                "confirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "d34b7e2d-6d25-4b35-9764-c7b1a07cd539",
+          "name": "Cancel an Appointment",
+          "request": {
+            "name": "Cancel an Appointment",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "appointment",
+                ":id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "d0893412-c169-4cec-845b-4ee5b21f543c",
+      "name": "Employees",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "01671db2-7a56-4427-b90d-a63e1a0593dd",
+          "name": "Find all users",
+          "request": {
+            "name": "Find all users",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "932e30aa-f0ee-4e00-a1c1-4301953420ff",
+          "name": "Create one User",
+          "request": {
+            "name": "Create one User",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "df2e1714-b03e-4327-b175-475a144b2be9",
+          "name": "Find one User by id",
+          "request": {
+            "name": "Find one User by id",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "user",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "1e4642e1-d0d9-436e-98fc-4b665039272a",
+          "name": "Update one User by id",
+          "request": {
+            "name": "Update one User by id",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "user",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "24070845-f20b-4cee-9bdc-60cb995fbb52",
+          "name": "Retrieve currently authenticated user details",
+          "request": {
+            "name": "Retrieve currently authenticated user details",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "user",
+                "logged-in"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "31813848-2b0b-4eb0-a38c-3ad255eb6e6a",
+          "name": "Change user password",
+          "request": {
+            "name": "Change user password",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "user",
+                ":id",
+                "password"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "a00e576d-4154-4204-b3e6-18875afb9f5c",
+          "name": "Find all the User Roles, and the user's current role",
+          "request": {
+            "name": "Find all the User Roles, and the user's current role",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "user",
+                ":userId",
+                "role"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "1ed6d22c-50e4-4ad1-a320-08cdd7703d13",
+          "name": "Assign the User Type/role",
+          "request": {
+            "name": "Assign the User Type/role",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "user",
+                ":userId",
+                "role"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"roleId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "e5b626ae-581c-4d1d-bc24-d6029e7dfc3f",
+      "name": "Locations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a5571e02-dc77-43e4-bd82-c0e65b7fd51e",
+          "name": "Update Location data",
+          "request": {
+            "name": "Update Location data",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "location",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"timezone\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "id": "ac6f637a-f741-45f1-a666-629eb5a3e84d",
+      "name": "Webhooks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "75267b91-4e9f-411b-96c9-e2e8068f4e99",
+          "name": "Create a new webhook",
+          "request": {
+            "name": "Create a new webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "webhook"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"triggers\": [\n    \"<string>\"\n  ],\n  \"enabled\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "6a65f183-09c2-4b1f-88e2-a2a0eb43fc9d",
+          "name": "Retrieve a specific webhook by id",
+          "request": {
+            "name": "Retrieve a specific webhook by id",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "webhook",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": []
+        },
+        {
+          "id": "4f23a19e-177e-4d1c-a995-e9e69a7097fd",
+          "name": "Update an existing webhook",
+          "request": {
+            "name": "Update an existing webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "webhook",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"enabled\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "d8cc007f-1c3f-4fb5-a533-9973138f0946",
+          "name": "Remove a webhook",
+          "request": {
+            "name": "Remove a webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "v3",
+                "webhook",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{apiKey}}"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiKey}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.shopmonkey.cloud"
+    },
+    {
+      "key": "apiKey",
+      "value": ""
+    }
+  ]
+}

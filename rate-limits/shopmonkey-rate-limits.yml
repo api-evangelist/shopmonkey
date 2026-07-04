@@ -1,0 +1,47 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Shopmonkey
+providerId: shopmonkey
+created: '2026-07-04'
+modified: '2026-07-04'
+reconciled: false
+tags:
+- Auto Repair
+- Shop Management
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Shopmonkey REST API enforces a per-API-key rolling 60-second request
+  limit. Exceeding it returns HTTP 429 with a Retry-After header and
+  X-RateLimit-Limit-Minute / X-RateLimit-Remaining-Minute response headers.
+  Shopmonkey documents the mechanism and headers but does not publish the
+  numeric per-tier limit; it is account-specific and disclosed on request to
+  support.
+notes: >-
+  Confirm the current numeric per-minute ceiling and whether it varies by
+  subscription tier (Basic/Clever/Genius/Multi-Shop) directly with Shopmonkey
+  support on reconciliation.
+sources:
+- https://shopmonkey.dev/overview
+- https://shopmonkey.dev/quickstart
+responseCodes:
+  throttled: 429
+limits:
+- name: Requests Per Minute (rolling window)
+  scope: apiKey
+  metric: requests
+  limit: see provider documentation (not publicly numeric)
+  notes: Enforced via a rolling 60-second window; surfaced through X-RateLimit-Limit-Minute
+    and X-RateLimit-Remaining-Minute response headers.
+policies:
+- name: Retry-After Header
+  description: 429 responses include a Retry-After header stating the number of
+    seconds to wait before submitting additional requests.
+- name: Backoff Strategy
+  description: Clients should honor Retry-After and implement exponential backoff
+    with jitter for sustained integrations.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

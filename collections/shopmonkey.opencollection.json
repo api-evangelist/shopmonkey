@@ -1,0 +1,1004 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shopmonkey API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{apiKey}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Work Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find all Orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order"
+          },
+          "docs": "Find all Orders"
+        },
+        {
+          "info": {
+            "name": "Create one Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/order",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"customerId\": \"<string>\",\n  \"vehicleId\": \"<string>\",\n  \"locationId\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Create one Order"
+        },
+        {
+          "info": {
+            "name": "Find one Order by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order/:id"
+          },
+          "docs": "Find one Order by id"
+        },
+        {
+          "info": {
+            "name": "Update one Order by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/order/:id",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"status\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Update one Order by id"
+        },
+        {
+          "info": {
+            "name": "Apply a status action to an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shopmonkey.cloud/v3/order/:id/:action"
+          },
+          "docs": "Apply a status action to an Order"
+        },
+        {
+          "info": {
+            "name": "Move an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/order/:id/move"
+          },
+          "docs": "Move an Order"
+        },
+        {
+          "info": {
+            "name": "Calculate pricing for an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/order/:id/calculated_pricing"
+          },
+          "docs": "Calculate pricing for an Order"
+        },
+        {
+          "info": {
+            "name": "Get the Order as a PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order/:id/pdf"
+          },
+          "docs": "Get the Order as a PDF"
+        },
+        {
+          "info": {
+            "name": "Find all Services on an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order/:orderId/service"
+          },
+          "docs": "Find all Services on an Order"
+        },
+        {
+          "info": {
+            "name": "Add a Service to an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/order/:orderId/service",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Add a Service to an Order"
+        },
+        {
+          "info": {
+            "name": "Find all Parts on an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order/:orderId/part"
+          },
+          "docs": "Find all Parts on an Order"
+        },
+        {
+          "info": {
+            "name": "Add a Part to a Service on an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/order/:orderId/part",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"partId\": \"<string>\",\n  \"quantity\": 1\n}"
+            }
+          },
+          "docs": "Add a Part to a Service on an Order"
+        },
+        {
+          "info": {
+            "name": "Update Bulk Parts for an Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/order/:orderId/part_bulk",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"parts\": []\n}"
+            }
+          },
+          "docs": "Update Bulk Parts for an Order"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new customer record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/customer",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Create a new customer record"
+        },
+        {
+          "info": {
+            "name": "Fetch a specific customer's details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/customer/:id"
+          },
+          "docs": "Fetch a specific customer's details"
+        },
+        {
+          "info": {
+            "name": "Update customer information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/customer/:id",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"firstName\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Update customer information"
+        },
+        {
+          "info": {
+            "name": "Soft delete a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shopmonkey.cloud/v3/customer/:id"
+          },
+          "docs": "Soft delete a customer"
+        },
+        {
+          "info": {
+            "name": "Search customer entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/customer/search",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"query\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Search customer entities"
+        },
+        {
+          "info": {
+            "name": "Search customers by email address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/customer/search-by-email",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"email\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Search customers by email address"
+        },
+        {
+          "info": {
+            "name": "Search customers by phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/customer/search-by-phone",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"phone\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Search customers by phone number"
+        },
+        {
+          "info": {
+            "name": "Retrieve vehicles linked to a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/customer/:id/vehicle"
+          },
+          "docs": "Retrieve vehicles linked to a customer"
+        },
+        {
+          "info": {
+            "name": "Retrieve orders associated with a specific customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/customer/:id/order"
+          },
+          "docs": "Retrieve orders associated with a specific customer"
+        },
+        {
+          "info": {
+            "name": "Create a new email for the specified customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/customer/:id/email",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"email\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Create a new email for the specified customer"
+        },
+        {
+          "info": {
+            "name": "Update a customer's phone number",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/customer/:id/phone",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"number\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Update a customer's phone number"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Vehicles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new Vehicle record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"vin\": \"<string>\",\n  \"customerId\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Create a new Vehicle record"
+        },
+        {
+          "info": {
+            "name": "Retrieve a single Vehicle by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id"
+          },
+          "docs": "Retrieve a single Vehicle by id"
+        },
+        {
+          "info": {
+            "name": "Update an existing Vehicle record",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"mileage\": 0\n}"
+            }
+          },
+          "docs": "Update an existing Vehicle record"
+        },
+        {
+          "info": {
+            "name": "Associate a Vehicle with a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/link",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"customerId\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Associate a Vehicle with a customer"
+        },
+        {
+          "info": {
+            "name": "Retrieve available vehicle production years",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/years"
+          },
+          "docs": "Retrieve available vehicle production years"
+        },
+        {
+          "info": {
+            "name": "List vehicle manufacturers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/makes"
+          },
+          "docs": "List vehicle manufacturers"
+        },
+        {
+          "info": {
+            "name": "Fetch available vehicle models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/models"
+          },
+          "docs": "Fetch available vehicle models"
+        },
+        {
+          "info": {
+            "name": "Validate a VIN number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/vin/validate",
+            "query": [
+              {
+                "key": "vin",
+                "value": "<string>"
+              }
+            ]
+          },
+          "docs": "Validate a VIN number"
+        },
+        {
+          "info": {
+            "name": "Validate a license plate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/license-plate/validate",
+            "query": [
+              {
+                "key": "plate",
+                "value": "<string>"
+              }
+            ]
+          },
+          "docs": "Validate a license plate"
+        },
+        {
+          "info": {
+            "name": "List service orders for a vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/orders"
+          },
+          "docs": "List service orders for a vehicle"
+        },
+        {
+          "info": {
+            "name": "Retrieve mileage records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/mileage-logs"
+          },
+          "docs": "Retrieve mileage records"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Inventory & Parts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find ALL Parts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/part"
+          },
+          "docs": "Find ALL Parts"
+        },
+        {
+          "info": {
+            "name": "Find ALL Parts Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/part/summary"
+          },
+          "docs": "Find ALL Parts Summary"
+        },
+        {
+          "info": {
+            "name": "Search for specific parts by criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/part/search",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"query\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Search for specific parts by criteria"
+        },
+        {
+          "info": {
+            "name": "Find Compatible Options",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/part/compatible",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"vehicleId\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Find Compatible Options"
+        },
+        {
+          "info": {
+            "name": "Find line item assignments to parts and tires",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/line_item_assignment"
+          },
+          "docs": "Find line item assignments to parts and tires"
+        },
+        {
+          "info": {
+            "name": "Bulk-assign line items to parts, tires, or labor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/line_item_assignment/bulk",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"assignments\": []\n}"
+            }
+          },
+          "docs": "Bulk-assign line items to parts, tires, or labor"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Invoices & Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the customer-shared Order as a PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order_shared/:publicId/pdf"
+          },
+          "docs": "Get the customer-shared Order as a PDF"
+        },
+        {
+          "info": {
+            "name": "Find signed invoices for a shared Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order_shared/:publicId/signed_invoice"
+          },
+          "docs": "Find signed invoices for a shared Order"
+        },
+        {
+          "info": {
+            "name": "Get the latest signed invoice for a shared Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order_shared/:publicId/signed_invoice/latest"
+          },
+          "docs": "Get the latest signed invoice for a shared Order"
+        },
+        {
+          "info": {
+            "name": "Find payments recorded against a shared Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order_shared/:publicId/payment"
+          },
+          "docs": "Find payments recorded against a shared Order"
+        },
+        {
+          "info": {
+            "name": "Search for Payment Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/search",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"query\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Search for Payment Entries"
+        },
+        {
+          "info": {
+            "name": "Record a payment manually",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/manual/charge",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"orderId\": \"<string>\",\n  \"amount\": 0\n}"
+            }
+          },
+          "docs": "Record a payment manually"
+        },
+        {
+          "info": {
+            "name": "Remove a manually-recorded payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/manual/:id"
+          },
+          "docs": "Remove a manually-recorded payment"
+        },
+        {
+          "info": {
+            "name": "Create one Manual Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/manual/refund",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"paymentId\": \"<string>\",\n  \"amount\": 0\n}"
+            }
+          },
+          "docs": "Create one Manual Refund"
+        },
+        {
+          "info": {
+            "name": "Download a refund receipt as PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/manual/refund/:id/download-pdf"
+          },
+          "docs": "Download a refund receipt as PDF"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Appointments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find all Appointments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/appointment"
+          },
+          "docs": "Find all Appointments"
+        },
+        {
+          "info": {
+            "name": "Create a new appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/appointment",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"customerId\": \"<string>\",\n  \"vehicleId\": \"<string>\",\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\"\n}"
+            }
+          },
+          "docs": "Create a new appointment"
+        },
+        {
+          "info": {
+            "name": "Find one Appointment by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/:id"
+          },
+          "docs": "Find one Appointment by id"
+        },
+        {
+          "info": {
+            "name": "Update one appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/:id",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"startDate\": \"<dateTime>\"\n}"
+            }
+          },
+          "docs": "Update one appointment"
+        },
+        {
+          "info": {
+            "name": "Remove an appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/:id"
+          },
+          "docs": "Remove an appointment"
+        },
+        {
+          "info": {
+            "name": "Search for appointments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/search",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\"\n}"
+            }
+          },
+          "docs": "Search for appointments"
+        },
+        {
+          "info": {
+            "name": "Confirm an Appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/:id/confirm"
+          },
+          "docs": "Confirm an Appointment"
+        },
+        {
+          "info": {
+            "name": "Cancel an Appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/:id/cancel"
+          },
+          "docs": "Cancel an Appointment"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Employees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find all users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/user"
+          },
+          "docs": "Find all users"
+        },
+        {
+          "info": {
+            "name": "Create one User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/user",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"firstName\": \"<string>\",\n  \"lastName\": \"<string>\",\n  \"email\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Create one User"
+        },
+        {
+          "info": {
+            "name": "Find one User by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/user/:id"
+          },
+          "docs": "Find one User by id"
+        },
+        {
+          "info": {
+            "name": "Update one User by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/user/:id",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"firstName\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Update one User by id"
+        },
+        {
+          "info": {
+            "name": "Retrieve currently authenticated user details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/user/logged-in"
+          },
+          "docs": "Retrieve currently authenticated user details"
+        },
+        {
+          "info": {
+            "name": "Change user password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/user/:id/password",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"password\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Change user password"
+        },
+        {
+          "info": {
+            "name": "Find all the User Roles, and the user's current role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/user/:userId/role"
+          },
+          "docs": "Find all the User Roles, and the user's current role"
+        },
+        {
+          "info": {
+            "name": "Assign the User Type/role",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/user/:userId/role",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"roleId\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Assign the User Type/role"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update Location data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/location/:id",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"<string>\",\n  \"timezone\": \"<string>\"\n}"
+            }
+          },
+          "docs": "Update Location data"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/webhook",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"<string>\",\n  \"url\": \"<string>\",\n  \"triggers\": [\n    \"<string>\"\n  ],\n  \"enabled\": true\n}"
+            }
+          },
+          "docs": "Create a new webhook"
+        },
+        {
+          "info": {
+            "name": "Retrieve a specific webhook by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/webhook/:id"
+          },
+          "docs": "Retrieve a specific webhook by id"
+        },
+        {
+          "info": {
+            "name": "Update an existing webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/webhook/:id",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"enabled\": false\n}"
+            }
+          },
+          "docs": "Update an existing webhook"
+        },
+        {
+          "info": {
+            "name": "Remove a webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shopmonkey.cloud/v3/webhook/:id"
+          },
+          "docs": "Remove a webhook"
+        }
+      ]
+    }
+  ]
+}

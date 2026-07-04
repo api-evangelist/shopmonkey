@@ -1,0 +1,138 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Shopmonkey
+providerId: shopmonkey
+created: '2026-07-04'
+modified: '2026-07-04'
+reconciled: false
+tags:
+- Auto Repair
+- Shop Management
+- Plans
+- Subscription
+description: >-
+  Shopmonkey sells its shop management platform on flat monthly per-shop
+  subscription tiers (Basic, Clever, Genius) plus a custom-quoted Multi-Shop
+  tier for multi-location operators. The REST API and webhooks are a platform
+  capability available to subscribing shops via a self-service API key
+  (Settings > Integration > API Keys) rather than a separately metered
+  product; Shopmonkey does not publish a standalone per-call or per-token API
+  price list. Enterprise Data Streaming (EDS), the CDC-style bulk/streaming
+  export, is called out as an Enterprise-only add-on requiring a sales
+  conversation.
+notes: >-
+  Public marketing pages list list-price ranges that change over time and by
+  region/promotion; verify current prices at shopmonkey.io/pricing on
+  reconciliation. Whether API/webhook access is gated below Basic (e.g. trial
+  accounts) was not independently confirmed.
+sources:
+- https://www.shopmonkey.io/pricing
+- https://shopmonkey.dev/overview
+- https://shopmonkey.dev/eds
+plans:
+- id: shopmonkey-basic
+  name: Basic
+  type: flat
+  description: >-
+    Entry-tier shop management subscription: unlimited quotes/invoices,
+    two-way SMS and email, integrated payments, and parts lookup.
+  entries:
+  - label: Basic Subscription
+    name: basic_subscription
+    type: flat
+    metric: shop
+    limit: 1
+    timeFrame: month
+    geo: US, Canada
+    unit: 1
+    price: around $199/month per shop (list price, varies by promotion/term)
+    userMultiplied: false
+  elements:
+  - name: Quotes & Invoices
+  - name: Two-Way SMS/Email
+  - name: Integrated Payments
+  - name: Parts Lookup
+  - name: REST API Access
+  - name: Webhooks
+- id: shopmonkey-clever
+  name: Clever
+  type: flat
+  description: >-
+    Mid-tier subscription adding digital vehicle inspections, inventory
+    management, and QuickBooks integration on top of Basic.
+  entries:
+  - label: Clever Subscription
+    name: clever_subscription
+    type: flat
+    metric: shop
+    limit: 1
+    timeFrame: month
+    geo: US, Canada
+    unit: 1
+    price: around $324/month per shop (list price, varies by promotion/term)
+    userMultiplied: false
+  elements:
+  - name: Digital Vehicle Inspections
+  - name: Inventory Management
+  - name: QuickBooks Integration
+  - name: REST API Access
+  - name: Webhooks
+- id: shopmonkey-genius
+  name: Genius
+  type: flat
+  description: >-
+    Top single-shop subscription tier adding labor guides, diagrams, tire
+    ordering, and lower integrated-payment processing rates.
+  entries:
+  - label: Genius Subscription
+    name: genius_subscription
+    type: flat
+    metric: shop
+    limit: 1
+    timeFrame: month
+    geo: US, Canada
+    unit: 1
+    price: around $475/month per shop (list price, varies by promotion/term)
+    userMultiplied: false
+  elements:
+  - name: Labor Guides & Diagrams
+  - name: Tire Ordering
+  - name: Reduced Payment Processing Rates
+  - name: REST API Access
+  - name: Webhooks
+- id: shopmonkey-multi-shop
+  name: Multi-Shop
+  type: enterprise
+  description: >-
+    Custom-quoted tier for multi-location operators, negotiated directly
+    with Shopmonkey sales; includes access to Enterprise Data Streaming (EDS).
+  entries:
+  - label: Multi-Shop Agreement
+    name: multi_shop_agreement
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: US, Canada
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  - label: Enterprise Data Streaming (EDS)
+    name: eds_addon
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: US, Canada
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Multi-Location Reporting
+  - name: Enterprise Data Streaming (CDC)
+  - name: REST API Access
+  - name: Webhooks
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
