@@ -197,6 +197,10 @@ apis:
     push Shopmonkey events (scoped company-wide or per-location) to an external
     URL, with error-state tracking. Confirmed against shopmonkey.dev/resources/webhook.
 common:
+- type: DomainSecurity
+  url: security/shopmonkey-domain-security.yml
+- type: Authentication
+  url: authentication/shopmonkey-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/shopmonkeyus
 - type: LinkedIn
