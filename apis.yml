@@ -197,6 +197,8 @@ apis:
     push Shopmonkey events (scoped company-wide or per-location) to an external
     URL, with error-state tracking. Confirmed against shopmonkey.dev/resources/webhook.
 common:
+- type: AgenticAccess
+  url: agentic-access/shopmonkey-agentic-access.yml
 - type: DomainSecurity
   url: security/shopmonkey-domain-security.yml
 - type: Authentication
