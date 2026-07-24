@@ -1,0 +1,348 @@
+openapi: 3.0.3
+info:
+  title: Shopmonkey Appointments Vehicles API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  version: v3
+  contact:
+    name: Shopmonkey
+    url: https://shopmonkey.dev
+servers:
+- url: https://api.shopmonkey.cloud/v3
+  description: Shopmonkey production API (v3)
+security:
+- bearerAuth: []
+tags:
+- name: Vehicles
+  description: Create, update, and look up vehicles, VIN/plate validation, year/make/model data, mileage, and tire-pressure logs.
+paths:
+  /customer/{id}/vehicle:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listCustomerVehicles
+      tags:
+      - Vehicles
+      summary: Retrieve vehicles linked to a customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Vehicles owned by the customer.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Vehicle'
+  /vehicle:
+    post:
+      operationId: createVehicle
+      tags:
+      - Vehicles
+      summary: Create a new Vehicle record
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleInput'
+      responses:
+        '200':
+          description: The created vehicle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+  /vehicle/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getVehicle
+      tags:
+      - Vehicles
+      summary: Retrieve a single Vehicle by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested vehicle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+    put:
+      operationId: updateVehicle
+      tags:
+      - Vehicles
+      summary: Update an existing Vehicle record
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The updated vehicle.
+    patch:
+      operationId: softDeleteVehicle
+      tags:
+      - Vehicles
+      summary: Soft-delete a Vehicle
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The soft-deleted vehicle.
+  /vehicle/{id}/link:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    post:
+      operationId: linkVehicleToCustomer
+      tags:
+      - Vehicles
+      summary: Associate a Vehicle with a customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Linked vehicle.
+  /vehicle/years:
+    get:
+      operationId: listVehicleYears
+      tags:
+      - Vehicles
+      summary: Retrieve available vehicle production years
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Years.
+  /vehicle/makes:
+    get:
+      operationId: listVehicleMakes
+      tags:
+      - Vehicles
+      summary: List vehicle manufacturers
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Makes.
+  /vehicle/models:
+    get:
+      operationId: listVehicleModels
+      tags:
+      - Vehicles
+      summary: Fetch available vehicle models
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Models.
+  /vehicle/submodels:
+    get:
+      operationId: listVehicleSubmodels
+      tags:
+      - Vehicles
+      summary: Get vehicle submodel variations
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Submodels.
+  /vehicle/ymm:
+    get:
+      operationId: searchVehicleByYmm
+      tags:
+      - Vehicles
+      summary: Search vehicle year/make/model combinations
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Matching YMM combinations.
+  /vehicle/vin/validate:
+    get:
+      operationId: validateVin
+      tags:
+      - Vehicles
+      summary: Validate a VIN number
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: VIN validation result.
+  /vehicle/license-plate/validate:
+    get:
+      operationId: validateLicensePlate
+      tags:
+      - Vehicles
+      summary: Validate a license plate
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: License plate validation result.
+  /vehicle/{id}/orders:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listVehicleOrders
+      tags:
+      - Vehicles
+      summary: List service orders for a vehicle
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Orders for the vehicle.
+  /vehicle/{id}/deferred-services:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listVehicleDeferredServices
+      tags:
+      - Vehicles
+      summary: List pending/deferred service items for a vehicle
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deferred services.
+  /vehicle/{id}/owners:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listVehicleOwners
+      tags:
+      - Vehicles
+      summary: Retrieve vehicle ownership history
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Owners.
+    put:
+      operationId: updateVehicleOwners
+      tags:
+      - Vehicles
+      summary: Update owner information
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated owners.
+    delete:
+      operationId: removeVehicleOwner
+      tags:
+      - Vehicles
+      summary: Remove an owner record
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /vehicle/{id}/mileage-logs:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listVehicleMileageLogs
+      tags:
+      - Vehicles
+      summary: Retrieve mileage records
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Mileage logs.
+    post:
+      operationId: addVehicleMileageLog
+      tags:
+      - Vehicles
+      summary: Create a mileage log entry
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Created mileage log.
+    put:
+      operationId: updateVehicleMileageLog
+      tags:
+      - Vehicles
+      summary: Modify a mileage record
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated mileage log.
+    delete:
+      operationId: deleteVehicleMileageLog
+      tags:
+      - Vehicles
+      summary: Delete a mileage record
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /vehicle/{id}/tire-pressure-logs:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listTirePressureLogs
+      tags:
+      - Vehicles
+      summary: Retrieve tire pressure records
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Tire pressure logs.
+    post:
+      operationId: addTirePressureLog
+      tags:
+      - Vehicles
+      summary: Record tire pressure data
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Created tire pressure log.
+    delete:
+      operationId: deleteTirePressureLog
+      tags:
+      - Vehicles
+      summary: Remove tire pressure records
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
+  schemas:
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: string
+        vin:
+          type: string
+        year:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        submodel:
+          type: string
+        licensePlate:
+          type: string
+      additionalProperties: true
+      description: MODELED from documented vehicle lookup endpoints (years/makes/models/submodels/vin/ymm).
+    VehicleInput:
+      type: object
+      properties:
+        vin:
+          type: string
+        year:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        customerId:
+          type: string
+      additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API key generated in the Shopmonkey web app under Settings > Integration > API Keys, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Shopmonkey Developer documentation
+  url: https://shopmonkey.dev/overview

@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Shopmonkey Appointments Inventory & Parts API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  version: v3
+  contact:
+    name: Shopmonkey
+    url: https://shopmonkey.dev
+servers:
+- url: https://api.shopmonkey.cloud/v3
+  description: Shopmonkey production API (v3)
+security:
+- bearerAuth: []
+tags:
+- name: Inventory & Parts
+  description: Search the parts catalog, find compatible parts, and manage line-item assignments of parts/tires/labor.
+paths:
+  /part:
+    get:
+      operationId: listParts
+      tags:
+      - Inventory & Parts
+      summary: Find ALL Parts
+      description: CONFIRMED endpoint. Retrieves the shop's parts inventory.
+      responses:
+        '200':
+          description: Parts.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Part'
+  /part/summary:
+    get:
+      operationId: getPartsSummary
+      tags:
+      - Inventory & Parts
+      summary: Find ALL Parts Summary
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Parts summary.
+  /part/search:
+    post:
+      operationId: searchParts
+      tags:
+      - Inventory & Parts
+      summary: Search for specific parts by criteria
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Matching parts.
+  /part/compatible:
+    post:
+      operationId: findCompatibleParts
+      tags:
+      - Inventory & Parts
+      summary: Find Compatible Options
+      description: CONFIRMED endpoint. Locates parts compatible with a given vehicle.
+      responses:
+        '200':
+          description: Compatible parts.
+  /line_item_assignment:
+    get:
+      operationId: listLineItemAssignments
+      tags:
+      - Inventory & Parts
+      summary: Find line item assignments to parts and tires
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Line item assignments.
+  /line_item_assignment/bulk:
+    put:
+      operationId: bulkAssignLineItems
+      tags:
+      - Inventory & Parts
+      summary: Bulk-assign line items to parts, tires, or labor
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated assignments.
+components:
+  schemas:
+    Part:
+      type: object
+      properties:
+        id:
+          type: string
+        partNumber:
+          type: string
+        description:
+          type: string
+        quantityOnHand:
+          type: number
+        cost:
+          type: number
+        price:
+          type: number
+      additionalProperties: true
+      description: MODELED from the documented parts search/compatible/summary endpoints.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API key generated in the Shopmonkey web app under Settings > Integration > API Keys, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Shopmonkey Developer documentation
+  url: https://shopmonkey.dev/overview

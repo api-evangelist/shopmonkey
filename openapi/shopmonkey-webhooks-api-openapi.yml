@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: Shopmonkey Appointments Webhooks API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  version: v3
+  contact:
+    name: Shopmonkey
+    url: https://shopmonkey.dev
+servers:
+- url: https://api.shopmonkey.cloud/v3
+  description: Shopmonkey production API (v3)
+security:
+- bearerAuth: []
+tags:
+- name: Webhooks
+  description: Register and manage webhook subscriptions for Shopmonkey events.
+paths:
+  /webhook:
+    post:
+      operationId: createWebhook
+      tags:
+      - Webhooks
+      summary: Create a new webhook
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '200':
+          description: The created webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+  /webhook/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getWebhook
+      tags:
+      - Webhooks
+      summary: Retrieve a specific webhook by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested webhook.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+    put:
+      operationId: updateWebhook
+      tags:
+      - Webhooks
+      summary: Update an existing webhook
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The updated webhook.
+    delete:
+      operationId: deleteWebhook
+      tags:
+      - Webhooks
+      summary: Remove a webhook
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+components:
+  schemas:
+    WebhookInput:
+      type: object
+      required:
+      - name
+      - url
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+        triggers:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+        secret:
+          type: string
+        locationId:
+          type: string
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+        triggers:
+          type: array
+          items:
+            type: string
+        enabled:
+          type: boolean
+        version:
+          type: string
+        locationId:
+          type: string
+        error:
+          type: boolean
+        errorMessage:
+          type: string
+        errorDate:
+          type: string
+          format: date-time
+      description: CONFIRMED field shape from shopmonkey.dev/resources/webhook.
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API key generated in the Shopmonkey web app under Settings > Integration > API Keys, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Shopmonkey Developer documentation
+  url: https://shopmonkey.dev/overview

@@ -1,0 +1,425 @@
+openapi: 3.0.3
+info:
+  title: Shopmonkey Appointments Work Orders API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  version: v3
+  contact:
+    name: Shopmonkey
+    url: https://shopmonkey.dev
+servers:
+- url: https://api.shopmonkey.cloud/v3
+  description: Shopmonkey production API (v3)
+security:
+- bearerAuth: []
+tags:
+- name: Work Orders
+  description: Create and manage repair orders, order line items (services, parts, labor, fees, tires, subcontracts), authorizations, files, and PDFs.
+paths:
+  /order:
+    get:
+      operationId: listOrders
+      tags:
+      - Work Orders
+      summary: Find all Orders
+      description: CONFIRMED endpoint (shopmonkey.dev/resources/order). Lists work orders with filtering, pagination, and sorting.
+      responses:
+        '200':
+          description: A list of orders.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createOrder
+      tags:
+      - Work Orders
+      summary: Create one Order
+      description: CONFIRMED endpoint. Creates a new work order for a customer/vehicle at a location.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+      responses:
+        '200':
+          description: The created order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /order/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getOrder
+      tags:
+      - Work Orders
+      summary: Find one Order by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateOrder
+      tags:
+      - Work Orders
+      summary: Update one Order by id
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+      responses:
+        '200':
+          description: The updated order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /order/{id}/{action}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    - name: action
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Status transition action (e.g. approve, close, void) applied to the order.
+    patch:
+      operationId: transitionOrder
+      tags:
+      - Work Orders
+      summary: Apply a status action to an Order
+      description: CONFIRMED endpoint (path shape). Applies a workflow action/status transition to an order.
+      responses:
+        '200':
+          description: The updated order.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /order/{id}/move:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    put:
+      operationId: moveOrder
+      tags:
+      - Work Orders
+      summary: Move an Order
+      description: CONFIRMED endpoint. Moves an order between workflow columns/statuses.
+      responses:
+        '200':
+          description: The updated order.
+  /order/{id}/calculated_pricing:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    post:
+      operationId: calculateOrderPricing
+      tags:
+      - Work Orders
+      summary: Calculate pricing for an Order
+      description: CONFIRMED endpoint. Returns recalculated pricing totals for the order.
+      responses:
+        '200':
+          description: Calculated pricing.
+  /order/{id}/authorization:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listOrderAuthorizations
+      tags:
+      - Work Orders
+      summary: Find Order authorizations
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Order authorizations.
+    post:
+      operationId: createOrderAuthorization
+      tags:
+      - Work Orders
+      summary: Request an Order authorization
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Created authorization.
+  /order/{id}/authorization/{authorizationId}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    - name: authorizationId
+      in: path
+      required: true
+      schema:
+        type: string
+    put:
+      operationId: updateOrderAuthorization
+      tags:
+      - Work Orders
+      summary: Update an Order authorization
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated authorization.
+  /order/{id}/file:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    post:
+      operationId: addOrderFile
+      tags:
+      - Work Orders
+      summary: Attach a file to an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Attached file.
+  /order/{id}/file/{fileId}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    - name: fileId
+      in: path
+      required: true
+      schema:
+        type: string
+    delete:
+      operationId: deleteOrderFile
+      tags:
+      - Work Orders
+      summary: Remove a file from an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /order/{id}/pdf:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getOrderPdf
+      tags:
+      - Work Orders
+      summary: Get the Order as a PDF
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: PDF binary.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /order/{orderId}/service:
+    parameters:
+    - $ref: '#/components/parameters/OrderId'
+    get:
+      operationId: listOrderServices
+      tags:
+      - Work Orders
+      summary: Find all Services on an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Order services.
+    post:
+      operationId: addOrderService
+      tags:
+      - Work Orders
+      summary: Add a Service to an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Created service.
+  /order/{orderId}/service/{id}:
+    parameters:
+    - $ref: '#/components/parameters/OrderId'
+    - $ref: '#/components/parameters/Id'
+    put:
+      operationId: updateOrderService
+      tags:
+      - Work Orders
+      summary: Update a Service on an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated service.
+    delete:
+      operationId: deleteOrderService
+      tags:
+      - Work Orders
+      summary: Remove a Service from an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /order/{orderId}/part:
+    parameters:
+    - $ref: '#/components/parameters/OrderId'
+    get:
+      operationId: listOrderParts
+      tags:
+      - Work Orders
+      summary: Find all Parts on an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Order parts.
+    post:
+      operationId: addOrderPart
+      tags:
+      - Work Orders
+      summary: Add a Part to a Service on an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Created part line item.
+  /order/{orderId}/part_bulk:
+    parameters:
+    - $ref: '#/components/parameters/OrderId'
+    put:
+      operationId: bulkUpdateOrderParts
+      tags:
+      - Work Orders
+      summary: Update Bulk Parts for an Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated parts.
+  /customer/{id}/order:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listCustomerOrders
+      tags:
+      - Work Orders
+      summary: Retrieve orders associated with a specific customer
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Orders for the customer.
+  /vehicle/{id}/orders:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: listVehicleOrders
+      tags:
+      - Work Orders
+      summary: List service orders for a vehicle
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Orders for the vehicle.
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
+    OrderId:
+      name: orderId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Parent order identifier.
+  responses:
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed or API key is invalid/expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          description: Alphanumeric error code (e.g. BOFF-97d5f9).
+        message:
+          type: string
+        documentation_url:
+          type: string
+      description: MODELED from the documented error shape on shopmonkey.dev/overview.
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        publicId:
+          type: string
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        locationId:
+          type: string
+        status:
+          type: string
+        number:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+      description: MODELED - core fields inferred from documented relationships (customer/vehicle/location) and search/list endpoints; not a field-complete schema.
+    OrderInput:
+      type: object
+      required:
+      - customerId
+      - vehicleId
+      - locationId
+      properties:
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        locationId:
+          type: string
+      additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API key generated in the Shopmonkey web app under Settings > Integration > API Keys, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Shopmonkey Developer documentation
+  url: https://shopmonkey.dev/overview

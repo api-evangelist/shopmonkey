@@ -1,0 +1,179 @@
+openapi: 3.0.3
+info:
+  title: Shopmonkey Appointments Employees API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  version: v3
+  contact:
+    name: Shopmonkey
+    url: https://shopmonkey.dev
+servers:
+- url: https://api.shopmonkey.cloud/v3
+  description: Shopmonkey production API (v3)
+security:
+- bearerAuth: []
+tags:
+- name: Employees
+  description: Manage Shopmonkey users (employees), roles, and the authenticated user's own profile.
+paths:
+  /user:
+    get:
+      operationId: listUsers
+      tags:
+      - Employees
+      summary: Find all users
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+    post:
+      operationId: createUser
+      tags:
+      - Employees
+      summary: Create one User
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '200':
+          description: The created user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /user/logged-in:
+    get:
+      operationId: getLoggedInUser
+      tags:
+      - Employees
+      summary: Retrieve currently authenticated user details
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The authenticated user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /user/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getUser
+      tags:
+      - Employees
+      summary: Find one User by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      operationId: updateUser
+      tags:
+      - Employees
+      summary: Update one User by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The updated user.
+  /user/{id}/password:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    post:
+      operationId: changeUserPassword
+      tags:
+      - Employees
+      summary: Change user password
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Password changed.
+  /user/{userId}/role:
+    parameters:
+    - name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: getUserRole
+      tags:
+      - Employees
+      summary: Find all User Roles, and the user's current role
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Roles.
+    put:
+      operationId: assignUserRole
+      tags:
+      - Employees
+      summary: Assign the User Type/role
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated role assignment.
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        roleId:
+          type: string
+      additionalProperties: true
+    UserInput:
+      type: object
+      required:
+      - firstName
+      - lastName
+      - email
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        roleId:
+          type: string
+      additionalProperties: true
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API key generated in the Shopmonkey web app under Settings > Integration > API Keys, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Shopmonkey Developer documentation
+  url: https://shopmonkey.dev/overview

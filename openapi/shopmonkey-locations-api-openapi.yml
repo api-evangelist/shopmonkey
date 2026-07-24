@@ -1,0 +1,93 @@
+openapi: 3.0.3
+info:
+  title: Shopmonkey Appointments Locations API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  version: v3
+  contact:
+    name: Shopmonkey
+    url: https://shopmonkey.dev
+servers:
+- url: https://api.shopmonkey.cloud/v3
+  description: Shopmonkey production API (v3)
+security:
+- bearerAuth: []
+tags:
+- name: Locations
+  description: Manage shop location details for a multi-location company.
+paths:
+  /location/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getLocation
+      tags:
+      - Locations
+      summary: Retrieve a shop Location by id
+      description: MODELED endpoint - documented resource, GET-by-id inferred from the standard Shopmonkey resource pattern; only PUT is explicitly shown on the public docs page.
+      responses:
+        '200':
+          description: The requested location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+    put:
+      operationId: updateLocation
+      tags:
+      - Locations
+      summary: Update Location data
+      description: CONFIRMED endpoint (shopmonkey.dev/resources/location). Updates address, contact details, timezone, and display preferences for a shop location.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LocationInput'
+      responses:
+        '200':
+          description: The updated location.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+components:
+  schemas:
+    LocationInput:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        timezone:
+          type: string
+      additionalProperties: true
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        timezone:
+          type: string
+      additionalProperties: true
+      description: MODELED from the documented "address, contact details, timezone, and display preferences" update fields.
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API key generated in the Shopmonkey web app under Settings > Integration > API Keys, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Shopmonkey Developer documentation
+  url: https://shopmonkey.dev/overview

@@ -1,0 +1,240 @@
+openapi: 3.0.3
+info:
+  title: Shopmonkey Appointments Invoices & Payments API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  version: v3
+  contact:
+    name: Shopmonkey
+    url: https://shopmonkey.dev
+servers:
+- url: https://api.shopmonkey.cloud/v3
+  description: Shopmonkey production API (v3)
+security:
+- bearerAuth: []
+tags:
+- name: Invoices & Payments
+  description: Shared (customer-facing) invoices/PDFs on an order, and manual payment and refund entries.
+paths:
+  /order_shared/{publicId}/pdf:
+    parameters:
+    - $ref: '#/components/parameters/PublicId'
+    get:
+      operationId: getSharedOrderPdf
+      tags:
+      - Invoices & Payments
+      summary: Get the customer-shared Order as a PDF
+      description: CONFIRMED endpoint. Customer-facing shared-link surface for an order PDF.
+      responses:
+        '200':
+          description: PDF binary.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /order_shared/{publicId}/signed_invoice:
+    parameters:
+    - $ref: '#/components/parameters/PublicId'
+    get:
+      operationId: listSignedInvoices
+      tags:
+      - Invoices & Payments
+      summary: Find signed invoices for a shared Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Signed invoices.
+  /order_shared/{publicId}/signed_invoice/latest:
+    parameters:
+    - $ref: '#/components/parameters/PublicId'
+    get:
+      operationId: getLatestSignedInvoice
+      tags:
+      - Invoices & Payments
+      summary: Get the latest signed invoice for a shared Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The latest signed invoice.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignedInvoice'
+  /order_shared/{publicId}/signed_invoice/{id}/pdf:
+    parameters:
+    - $ref: '#/components/parameters/PublicId'
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getSignedInvoicePdf
+      tags:
+      - Invoices & Payments
+      summary: Get a signed invoice as a PDF
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: PDF binary.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+  /order_shared/{publicId}/payment:
+    parameters:
+    - $ref: '#/components/parameters/PublicId'
+    get:
+      operationId: listSharedOrderPayments
+      tags:
+      - Invoices & Payments
+      summary: Find payments recorded against a shared Order
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Payments.
+  /integration/payment/search:
+    post:
+      operationId: searchPayments
+      tags:
+      - Invoices & Payments
+      summary: Search for Payment Entries
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Matching payments.
+  /integration/payment/manual/charge:
+    post:
+      operationId: recordManualPayment
+      tags:
+      - Invoices & Payments
+      summary: Record a payment manually
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentInput'
+      responses:
+        '200':
+          description: The recorded payment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+  /integration/payment/manual/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    delete:
+      operationId: deleteManualPayment
+      tags:
+      - Invoices & Payments
+      summary: Remove a manually-recorded payment
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /integration/payment/manual/refund:
+    post:
+      operationId: createManualRefund
+      tags:
+      - Invoices & Payments
+      summary: Create one Manual Refund
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The created refund.
+  /integration/payment/manual/refund/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    put:
+      operationId: updateManualRefund
+      tags:
+      - Invoices & Payments
+      summary: Update one Payment/Refund by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Updated refund.
+  /integration/payment/manual/refund/{id}/download-pdf:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: downloadRefundPdf
+      tags:
+      - Invoices & Payments
+      summary: Download a refund receipt as PDF
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: PDF binary.
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
+    PublicId:
+      name: publicId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Public (customer-shareable) order identifier used on order_shared endpoints.
+  schemas:
+    SignedInvoice:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        signedDate:
+          type: string
+          format: date-time
+        signatureUrl:
+          type: string
+      additionalProperties: true
+      description: MODELED from the documented order_shared signed_invoice surface.
+    PaymentInput:
+      type: object
+      required:
+      - orderId
+      - amount
+      properties:
+        orderId:
+          type: string
+        amount:
+          type: number
+        method:
+          type: string
+      additionalProperties: true
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        amount:
+          type: number
+        method:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API key generated in the Shopmonkey web app under Settings > Integration > API Keys, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Shopmonkey Developer documentation
+  url: https://shopmonkey.dev/overview

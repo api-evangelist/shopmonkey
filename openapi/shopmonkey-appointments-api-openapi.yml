@@ -1,0 +1,186 @@
+openapi: 3.0.3
+info:
+  title: Shopmonkey Appointments API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  version: v3
+  contact:
+    name: Shopmonkey
+    url: https://shopmonkey.dev
+servers:
+- url: https://api.shopmonkey.cloud/v3
+  description: Shopmonkey production API (v3)
+security:
+- bearerAuth: []
+tags:
+- name: Appointments
+  description: Schedule, search, confirm, cancel, and update appointments.
+paths:
+  /appointment:
+    get:
+      operationId: listAppointments
+      tags:
+      - Appointments
+      summary: Find all Appointments
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Appointments.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Appointment'
+    post:
+      operationId: createAppointment
+      tags:
+      - Appointments
+      summary: Create a new appointment
+      description: CONFIRMED endpoint.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppointmentInput'
+      responses:
+        '200':
+          description: The created appointment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+  /appointment/{id}:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    get:
+      operationId: getAppointment
+      tags:
+      - Appointments
+      summary: Find one Appointment by id
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The requested appointment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appointment'
+    put:
+      operationId: updateAppointment
+      tags:
+      - Appointments
+      summary: Update one appointment
+      description: CONFIRMED endpoint. Supports recurring appointment modifications.
+      responses:
+        '200':
+          description: The updated appointment.
+    delete:
+      operationId: deleteAppointment
+      tags:
+      - Appointments
+      summary: Remove an appointment
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: Deleted.
+  /appointment/search:
+    post:
+      operationId: searchAppointments
+      tags:
+      - Appointments
+      summary: Search for appointments
+      description: CONFIRMED endpoint. Supports date range, customer, order, and technician filters.
+      responses:
+        '200':
+          description: Matching appointments.
+  /appointment/{id}/confirm:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    patch:
+      operationId: confirmAppointment
+      tags:
+      - Appointments
+      summary: Confirm an Appointment
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The confirmed appointment.
+  /appointment/{id}/cancel:
+    parameters:
+    - $ref: '#/components/parameters/Id'
+    patch:
+      operationId: cancelAppointment
+      tags:
+      - Appointments
+      summary: Cancel an Appointment
+      description: CONFIRMED endpoint.
+      responses:
+        '200':
+          description: The cancelled appointment.
+components:
+  schemas:
+    Appointment:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        technicianId:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        confirmed:
+          type: boolean
+        cancelled:
+          type: boolean
+      additionalProperties: true
+    AppointmentInput:
+      type: object
+      required:
+      - startDate
+      - endDate
+      properties:
+        orderId:
+          type: string
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        technicianId:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'API key generated in the Shopmonkey web app under Settings > Integration > API Keys, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Shopmonkey Developer documentation
+  url: https://shopmonkey.dev/overview
