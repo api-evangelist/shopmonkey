@@ -1,0 +1,30 @@
+{
+  "provider": "shopmonkey",
+  "sources": [
+    "shopmonkey-appointments-api-openapi.yml",
+    "shopmonkey-customers-api-openapi.yml",
+    "shopmonkey-employees-api-openapi.yml",
+    "shopmonkey-inventory-parts-api-openapi.yml",
+    "shopmonkey-invoices-payments-api-openapi.yml",
+    "shopmonkey-locations-api-openapi.yml",
+    "shopmonkey-vehicles-api-openapi.yml",
+    "shopmonkey-webhooks-api-openapi.yml",
+    "shopmonkey-work-orders-api-openapi.yml"
+  ],
+  "outputs": [
+    "shopmonkey-appointments-api-openapi.yml",
+    "shopmonkey-customers-api-openapi.yml",
+    "shopmonkey-employees-api-openapi.yml",
+    "shopmonkey-inventory-parts-api-openapi.yml",
+    "shopmonkey-invoices-payments-api-openapi.yml",
+    "shopmonkey-locations-api-openapi.yml",
+    "shopmonkey-vehicles-api-openapi.yml",
+    "shopmonkey-webhooks-api-openapi.yml",
+    "shopmonkey-work-orders-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
