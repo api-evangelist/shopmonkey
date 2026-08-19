@@ -1,0 +1,732 @@
+{
+  "item": [
+    {
+      "id": "479f56da-3ed4-4f75-9bb4-b33839fde0fd",
+      "name": "Appointments",
+      "description": {
+        "content": "Schedule, search, confirm, cancel, and update appointments.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a8b01acd-a253-41f0-96cb-51ef3d32f369",
+          "name": "Find all Appointments",
+          "request": {
+            "name": "Find all Appointments",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appointment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "04a72aef-73e8-44ef-b380-712ee39b8fb8",
+              "name": "Appointments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appointment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"orderId\": \"string\",\n      \"customerId\": \"string\",\n      \"vehicleId\": \"string\",\n      \"technicianId\": \"string\",\n      \"startDate\": \"1984-06-22T18:58:28.136Z\",\n      \"endDate\": \"2012-05-31T23:38:40.715Z\",\n      \"confirmed\": false,\n      \"cancelled\": true,\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"orderId\": \"string\",\n      \"customerId\": \"string\",\n      \"vehicleId\": \"string\",\n      \"technicianId\": \"string\",\n      \"startDate\": \"1963-12-23T12:54:11.765Z\",\n      \"endDate\": \"1960-03-22T08:25:03.794Z\",\n      \"confirmed\": true,\n      \"cancelled\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f027ecf-6c33-4715-9f13-9bd2e5aa853e",
+          "name": "Create a new appointment",
+          "request": {
+            "name": "Create a new appointment",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appointment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"orderId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"vehicleId\": \"<string>\",\n  \"technicianId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "63959227-2235-4085-824a-ed98f30550b1",
+              "name": "The created appointment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appointment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"startDate\": \"<dateTime>\",\n  \"endDate\": \"<dateTime>\",\n  \"orderId\": \"<string>\",\n  \"customerId\": \"<string>\",\n  \"vehicleId\": \"<string>\",\n  \"technicianId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"orderId\": \"string\",\n  \"customerId\": \"string\",\n  \"vehicleId\": \"string\",\n  \"technicianId\": \"string\",\n  \"startDate\": \"1951-05-27T21:44:13.836Z\",\n  \"endDate\": \"2023-08-20T23:18:49.003Z\",\n  \"confirmed\": false,\n  \"cancelled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87a0426e-9645-405e-b340-bf6a6b0f94ad",
+          "name": "Find one Appointment by id",
+          "request": {
+            "name": "Find one Appointment by id",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appointment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ba052cdb-a262-497f-84ac-72cc62553fee",
+              "name": "The requested appointment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appointment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"orderId\": \"string\",\n  \"customerId\": \"string\",\n  \"vehicleId\": \"string\",\n  \"technicianId\": \"string\",\n  \"startDate\": \"1951-05-27T21:44:13.836Z\",\n  \"endDate\": \"2023-08-20T23:18:49.003Z\",\n  \"confirmed\": false,\n  \"cancelled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d99a9263-fedf-465f-9446-fd6c7adaf972",
+          "name": "Update one appointment",
+          "request": {
+            "name": "Update one appointment",
+            "description": {
+              "content": "CONFIRMED endpoint. Supports recurring appointment modifications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appointment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resource identifier."
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bb22f780-1de1-41c1-9142-199c6b287b8c",
+              "name": "The updated appointment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appointment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5685e1f-bc2a-4de6-8d3b-66aaa1e0dece",
+          "name": "Remove an appointment",
+          "request": {
+            "name": "Remove an appointment",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appointment",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resource identifier."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "11beaa02-19e3-4d21-8877-2d2360067e82",
+              "name": "Deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appointment",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49bce7e0-7db3-47fe-b8bb-56b02a076f07",
+          "name": "Search for appointments",
+          "request": {
+            "name": "Search for appointments",
+            "description": {
+              "content": "CONFIRMED endpoint. Supports date range, customer, order, and technician filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appointment",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "87b53b8a-5593-4867-893d-04405a100e09",
+              "name": "Matching appointments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appointment",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "289f84a6-8b4b-4ab7-824c-6242e9e80dbd",
+          "name": "Confirm an Appointment",
+          "request": {
+            "name": "Confirm an Appointment",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appointment",
+                ":id",
+                "confirm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resource identifier."
+                }
+              ]
+            },
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b90086c-90d8-46c7-9ad2-9498537a2cd9",
+              "name": "The confirmed appointment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appointment",
+                    ":id",
+                    "confirm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "83db167d-752f-4028-a48d-a2361487921e",
+          "name": "Cancel an Appointment",
+          "request": {
+            "name": "Cancel an Appointment",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "appointment",
+                ":id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resource identifier."
+                }
+              ]
+            },
+            "method": "PATCH",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "aee5c6a8-2f96-4143-8076-e912814e7625",
+              "name": "The cancelled appointment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "appointment",
+                    ":id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shopmonkey.cloud/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "00289a59-4b60-407d-9464-4e625a5639a1",
+    "name": "Shopmonkey Appointments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.\n\nContact Support:\n Name: Shopmonkey",
+      "type": "text/plain"
+    }
+  }
+}

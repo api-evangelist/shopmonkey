@@ -1,0 +1,1068 @@
+{
+  "item": [
+    {
+      "id": "867bb399-8bc9-4214-8f95-3750a20d95a9",
+      "name": "Invoices & Payments",
+      "description": {
+        "content": "Shared (customer-facing) invoices/PDFs on an order, and manual payment and refund entries.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "33a4f6ab-b90f-4d0c-b778-9c94da2bff9d",
+          "name": "Get the customer-shared Order as a PDF",
+          "request": {
+            "name": "Get the customer-shared Order as a PDF",
+            "description": {
+              "content": "CONFIRMED endpoint. Customer-facing shared-link surface for an order PDF.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order_shared",
+                ":publicId",
+                "pdf"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publicId",
+                  "description": "(Required) Public (customer-shareable) order identifier used on order_shared endpoints."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e60b099-8dda-470c-b2c6-3156f2e9108d",
+              "name": "PDF binary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order_shared",
+                    ":publicId",
+                    "pdf"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publicId",
+                      "description": "(Required) Public (customer-shareable) order identifier used on order_shared endpoints."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7eb1f821-cc47-45c8-9925-1563aa6ae58a",
+          "name": "Find signed invoices for a shared Order",
+          "request": {
+            "name": "Find signed invoices for a shared Order",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order_shared",
+                ":publicId",
+                "signed_invoice"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publicId",
+                  "description": "(Required) Public (customer-shareable) order identifier used on order_shared endpoints."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ac838526-657f-4472-8f86-ec9d5fbe2664",
+              "name": "Signed invoices.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order_shared",
+                    ":publicId",
+                    "signed_invoice"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publicId",
+                      "description": "(Required) Public (customer-shareable) order identifier used on order_shared endpoints."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc214276-bd30-4284-a6f5-9aafc1933757",
+          "name": "Get the latest signed invoice for a shared Order",
+          "request": {
+            "name": "Get the latest signed invoice for a shared Order",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order_shared",
+                ":publicId",
+                "signed_invoice",
+                "latest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publicId",
+                  "description": "(Required) Public (customer-shareable) order identifier used on order_shared endpoints."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e53b26d-944d-462f-b8b9-511cedb1960d",
+              "name": "The latest signed invoice.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order_shared",
+                    ":publicId",
+                    "signed_invoice",
+                    "latest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publicId",
+                      "description": "(Required) Public (customer-shareable) order identifier used on order_shared endpoints."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"orderId\": \"string\",\n  \"signedDate\": \"1966-11-21T05:45:40.300Z\",\n  \"signatureUrl\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eec1ff16-2d22-46ec-b532-986aa6b8fff4",
+          "name": "Get a signed invoice as a PDF",
+          "request": {
+            "name": "Get a signed invoice as a PDF",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order_shared",
+                ":publicId",
+                "signed_invoice",
+                ":id",
+                "pdf"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publicId",
+                  "description": "(Required) Public (customer-shareable) order identifier used on order_shared endpoints."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b39406b-cb41-472b-a8b6-4a304a1f926f",
+              "name": "PDF binary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order_shared",
+                    ":publicId",
+                    "signed_invoice",
+                    ":id",
+                    "pdf"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publicId",
+                      "description": "(Required) Public (customer-shareable) order identifier used on order_shared endpoints."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9f3cac6b-78f1-4a7c-bc35-c9fe46768827",
+          "name": "Find payments recorded against a shared Order",
+          "request": {
+            "name": "Find payments recorded against a shared Order",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order_shared",
+                ":publicId",
+                "payment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "publicId",
+                  "description": "(Required) Public (customer-shareable) order identifier used on order_shared endpoints."
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3463cac6-3afa-4683-913f-5733b918d628",
+              "name": "Payments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order_shared",
+                    ":publicId",
+                    "payment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "publicId",
+                      "description": "(Required) Public (customer-shareable) order identifier used on order_shared endpoints."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "19d080d3-89b8-42dc-b425-7958d117acc2",
+          "name": "Search for Payment Entries",
+          "request": {
+            "name": "Search for Payment Entries",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "payment",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5a84f1ee-5c14-464e-8204-b24daf5fa778",
+              "name": "Matching payments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "payment",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "04bdd81a-6ac7-4046-aa2e-88e64c254cc0",
+          "name": "Record a payment manually",
+          "request": {
+            "name": "Record a payment manually",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "payment",
+                "manual",
+                "charge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"method\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8de6b85a-e45b-4ca4-890f-b19647896c9f",
+              "name": "The recorded payment.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "payment",
+                    "manual",
+                    "charge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orderId\": \"<string>\",\n  \"amount\": \"<number>\",\n  \"method\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"orderId\": \"string\",\n  \"amount\": 448.33840379550406,\n  \"method\": \"string\",\n  \"createdDate\": \"1948-05-22T18:14:47.195Z\",\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "acee9401-d33a-4b0b-ba6c-ef252f0dc3df",
+          "name": "Remove a manually-recorded payment",
+          "request": {
+            "name": "Remove a manually-recorded payment",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "payment",
+                "manual",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resource identifier."
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "44699c91-3343-4613-bd15-7e2cb2a776b4",
+              "name": "Deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "payment",
+                    "manual",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f8ed819-7ea1-4a46-8d55-fd14d2fe56ee",
+          "name": "Create one Manual Refund",
+          "request": {
+            "name": "Create one Manual Refund",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "payment",
+                "manual",
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59f4c00e-192d-49de-bc91-2c6e41186424",
+              "name": "The created refund.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "payment",
+                    "manual",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fda7f07c-e289-4687-ae78-08000aae300a",
+          "name": "Update one Payment/Refund by id",
+          "request": {
+            "name": "Update one Payment/Refund by id",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "payment",
+                "manual",
+                "refund",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resource identifier."
+                }
+              ]
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c13d3186-7530-4002-b523-ffd16f6410e4",
+              "name": "Updated refund.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "payment",
+                    "manual",
+                    "refund",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6ebf29a5-f855-452c-a8af-3c61ccc64301",
+          "name": "Download a refund receipt as PDF",
+          "request": {
+            "name": "Download a refund receipt as PDF",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integration",
+                "payment",
+                "manual",
+                "refund",
+                ":id",
+                "download-pdf"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Resource identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5bd2cb48-acb9-4b3a-857d-66d46521f54d",
+              "name": "PDF binary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integration",
+                    "payment",
+                    "manual",
+                    "refund",
+                    ":id",
+                    "download-pdf"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Resource identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shopmonkey.cloud/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5c13f25a-f664-4412-aa60-fd16d7d46705",
+    "name": "Shopmonkey Appointments Invoices & Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.\n\nContact Support:\n Name: Shopmonkey",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shopmonkey Appointments Inventory & Parts API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inventory & Parts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find ALL Parts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/part"
+          },
+          "docs": "CONFIRMED endpoint. Retrieves the shop's parts inventory."
+        },
+        {
+          "info": {
+            "name": "Find ALL Parts Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/part/summary"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Search for specific parts by criteria",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/part/search"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Find Compatible Options",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/part/compatible"
+          },
+          "docs": "CONFIRMED endpoint. Locates parts compatible with a given vehicle."
+        },
+        {
+          "info": {
+            "name": "Find line item assignments to parts and tires",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/line_item_assignment"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Bulk-assign line items to parts, tires, or labor",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/line_item_assignment/bulk"
+          },
+          "docs": "CONFIRMED endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

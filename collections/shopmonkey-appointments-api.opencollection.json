@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shopmonkey Appointments API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Appointments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find all Appointments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/appointment"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Create a new appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/appointment",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Find one Appointment by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Update one appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint. Supports recurring appointment modifications."
+        },
+        {
+          "info": {
+            "name": "Remove an appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Search for appointments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/search"
+          },
+          "docs": "CONFIRMED endpoint. Supports date range, customer, order, and technician filters."
+        },
+        {
+          "info": {
+            "name": "Confirm an Appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/:id/confirm",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Cancel an Appointment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shopmonkey.cloud/v3/appointment/:id/cancel",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

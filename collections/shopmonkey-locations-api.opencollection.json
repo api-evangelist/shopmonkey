@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shopmonkey Appointments Locations API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Locations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a shop Location by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/location/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "MODELED endpoint - documented resource, GET-by-id inferred from the standard Shopmonkey resource pattern; only PUT is explicitly shown on the public docs page."
+        },
+        {
+          "info": {
+            "name": "Update Location data",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/location/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "CONFIRMED endpoint (shopmonkey.dev/resources/location). Updates address, contact details, timezone, and display preferences for a shop location."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

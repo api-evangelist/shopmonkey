@@ -1,0 +1,219 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shopmonkey Appointments Invoices & Payments API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invoices & Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the customer-shared Order as a PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order_shared/:publicId/pdf",
+            "params": [
+              {
+                "name": "publicId",
+                "value": "",
+                "type": "path",
+                "description": "Public (customer-shareable) order identifier used on order_shared endpoints."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint. Customer-facing shared-link surface for an order PDF."
+        },
+        {
+          "info": {
+            "name": "Find signed invoices for a shared Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order_shared/:publicId/signed_invoice",
+            "params": [
+              {
+                "name": "publicId",
+                "value": "",
+                "type": "path",
+                "description": "Public (customer-shareable) order identifier used on order_shared endpoints."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Get the latest signed invoice for a shared Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order_shared/:publicId/signed_invoice/latest",
+            "params": [
+              {
+                "name": "publicId",
+                "value": "",
+                "type": "path",
+                "description": "Public (customer-shareable) order identifier used on order_shared endpoints."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Get a signed invoice as a PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order_shared/:publicId/signed_invoice/:id/pdf",
+            "params": [
+              {
+                "name": "publicId",
+                "value": "",
+                "type": "path",
+                "description": "Public (customer-shareable) order identifier used on order_shared endpoints."
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Find payments recorded against a shared Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/order_shared/:publicId/payment",
+            "params": [
+              {
+                "name": "publicId",
+                "value": "",
+                "type": "path",
+                "description": "Public (customer-shareable) order identifier used on order_shared endpoints."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Search for Payment Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/search"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Record a payment manually",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/manual/charge",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Remove a manually-recorded payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/manual/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Create one Manual Refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/manual/refund"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Update one Payment/Refund by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/manual/refund/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Download a refund receipt as PDF",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/integration/payment/manual/refund/:id/download-pdf",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

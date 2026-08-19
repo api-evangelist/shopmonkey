@@ -1,0 +1,439 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shopmonkey Appointments Vehicles API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vehicles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve vehicles linked to a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/customer/:id/vehicle",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Create a new Vehicle record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single Vehicle by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Update an existing Vehicle record",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Soft-delete a Vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Associate a Vehicle with a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/link",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Retrieve available vehicle production years",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/years"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "List vehicle manufacturers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/makes"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Fetch available vehicle models",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/models"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Get vehicle submodel variations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/submodels"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Search vehicle year/make/model combinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/ymm"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Validate a VIN number",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/vin/validate"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Validate a license plate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/license-plate/validate"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "List service orders for a vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/orders",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "List pending/deferred service items for a vehicle",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/deferred-services",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Retrieve vehicle ownership history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/owners",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Update owner information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/owners",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Remove an owner record",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/owners",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Retrieve mileage records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/mileage-logs",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Create a mileage log entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/mileage-logs",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Modify a mileage record",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/mileage-logs",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Delete a mileage record",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/mileage-logs",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Retrieve tire pressure records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/tire-pressure-logs",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Record tire pressure data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/tire-pressure-logs",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Remove tire pressure records",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shopmonkey.cloud/v3/vehicle/:id/tire-pressure-logs",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

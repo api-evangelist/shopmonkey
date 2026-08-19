@@ -1,0 +1,467 @@
+{
+  "item": [
+    {
+      "id": "f3368861-ec5e-46ed-948b-7b50dac9e38c",
+      "name": "Inventory & Parts",
+      "description": {
+        "content": "Search the parts catalog, find compatible parts, and manage line-item assignments of parts/tires/labor.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ba15de41-8e8b-481c-84f8-d0b5d156a6e5",
+          "name": "Find ALL Parts",
+          "request": {
+            "name": "Find ALL Parts",
+            "description": {
+              "content": "CONFIRMED endpoint. Retrieves the shop's parts inventory.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "part"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f56c0a24-7c39-4de6-8efe-b6408f64e41b",
+              "name": "Parts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "part"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"partNumber\": \"string\",\n      \"description\": \"string\",\n      \"quantityOnHand\": 6960.682655732246,\n      \"cost\": 3408.3707400730113,\n      \"price\": 8883.64270757249\n    },\n    {\n      \"id\": \"string\",\n      \"partNumber\": \"string\",\n      \"description\": \"string\",\n      \"quantityOnHand\": 4543.755576902645,\n      \"cost\": 7731.837407483605,\n      \"price\": 8379.960474818168,\n      \"key_0\": 7078,\n      \"key_1\": 8173,\n      \"key_2\": \"string\",\n      \"key_3\": 8094.674553828643\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4110c856-d327-4a52-b565-d62f53cf8a3d",
+          "name": "Find ALL Parts Summary",
+          "request": {
+            "name": "Find ALL Parts Summary",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "part",
+                "summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "db01bcf0-27e1-4fc3-9dc0-c362f1a2cb7b",
+              "name": "Parts summary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "part",
+                    "summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40fc3642-2581-49a4-9825-5ee9adf8ae22",
+          "name": "Search for specific parts by criteria",
+          "request": {
+            "name": "Search for specific parts by criteria",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "part",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ba7e41a5-fccc-4694-9098-c3d89293f063",
+              "name": "Matching parts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "part",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "835d0159-f110-4c85-ab02-65e3ba36d0de",
+          "name": "Find Compatible Options",
+          "request": {
+            "name": "Find Compatible Options",
+            "description": {
+              "content": "CONFIRMED endpoint. Locates parts compatible with a given vehicle.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "part",
+                "compatible"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "370ec8e5-ac71-4d81-bc79-bb4f0fa93095",
+              "name": "Compatible parts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "part",
+                    "compatible"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "03e963ac-5208-4426-8ae3-fe81f2d818a0",
+          "name": "Find line item assignments to parts and tires",
+          "request": {
+            "name": "Find line item assignments to parts and tires",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "line_item_assignment"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b5fc86bd-37cb-420a-bd97-4c6b200d07aa",
+              "name": "Line item assignments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "line_item_assignment"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "13ba071d-2886-449b-b052-ccddc519703e",
+          "name": "Bulk-assign line items to parts, tires, or labor",
+          "request": {
+            "name": "Bulk-assign line items to parts, tires, or labor",
+            "description": {
+              "content": "CONFIRMED endpoint.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "line_item_assignment",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cc539b7b-bb66-486c-a925-18964c2da8bc",
+              "name": "Updated assignments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "line_item_assignment",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shopmonkey.cloud/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d04f9719-fc36-48f9-83b1-94ac406b7c09",
+    "name": "Shopmonkey Appointments Inventory & Parts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.\n\nContact Support:\n Name: Shopmonkey",
+      "type": "text/plain"
+    }
+  }
+}

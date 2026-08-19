@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shopmonkey Appointments Employees API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Employees",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find all users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/user"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Create one User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Retrieve currently authenticated user details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/user/logged-in"
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Find one User by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/user/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Update one User by id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/user/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Change user password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shopmonkey.cloud/v3/user/:id/password",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Resource identifier."
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Find all User Roles, and the user's current role",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shopmonkey.cloud/v3/user/:userId/role",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        },
+        {
+          "info": {
+            "name": "Assign the User Type/role",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.shopmonkey.cloud/v3/user/:userId/role",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "CONFIRMED endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
