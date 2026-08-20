@@ -259,6 +259,8 @@ apis:
   humanURL: https://shopmonkey.dev/resources/order
   baseURL: https://api.shopmonkey.cloud/v3
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
