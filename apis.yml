@@ -210,6 +210,8 @@ apis:
   humanURL: https://shopmonkey.dev/resources/order
   baseURL: https://api.shopmonkey.cloud/v3
   tags:
+  - Location
+  tags_raw:
   - Locations
   properties:
   - type: OpenAPI
