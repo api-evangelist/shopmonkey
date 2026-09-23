@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Shopmonkey Appointments Vehicles API
-  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  title: Shopmonkey Vehicles API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems.
   version: v3
   contact:
     name: Shopmonkey
@@ -296,14 +296,6 @@ paths:
         '200':
           description: Deleted.
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Resource identifier.
   schemas:
     Vehicle:
       type: object
@@ -338,6 +330,14 @@ components:
         customerId:
           type: string
       additionalProperties: true
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
   securitySchemes:
     bearerAuth:
       type: http

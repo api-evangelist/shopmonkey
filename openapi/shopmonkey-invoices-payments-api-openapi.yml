@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Shopmonkey Appointments Invoices & Payments API
-  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  title: Shopmonkey Invoices & Payments API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems.
   version: v3
   contact:
     name: Shopmonkey
@@ -202,19 +202,6 @@ components:
           type: string
       additionalProperties: true
       description: MODELED from the documented order_shared signed_invoice surface.
-    PaymentInput:
-      type: object
-      required:
-      - orderId
-      - amount
-      properties:
-        orderId:
-          type: string
-        amount:
-          type: number
-        method:
-          type: string
-      additionalProperties: true
     Payment:
       type: object
       properties:
@@ -229,6 +216,19 @@ components:
         createdDate:
           type: string
           format: date-time
+      additionalProperties: true
+    PaymentInput:
+      type: object
+      required:
+      - orderId
+      - amount
+      properties:
+        orderId:
+          type: string
+        amount:
+          type: number
+        method:
+          type: string
       additionalProperties: true
   securitySchemes:
     bearerAuth:

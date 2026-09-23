@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Shopmonkey Appointments Work Orders API
-  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems. Authentication is a Bearer API key generated in the Shopmonkey web app under Settings > Integration > API Keys. Error responses return a JSON body with success, code, message, and documentation_url fields. Rate limiting returns HTTP 429 with Retry-After, X-RateLimit-Limit-Minute, and X-RateLimit-Remaining-Minute headers; exact numeric limits are account-specific and not published. Paths and methods below are confirmed against the public Shopmonkey Developer docs at shopmonkey.dev; request/response schemas are modeled (best-effort) from the documented resource fields where full detail was not independently reconciled field-by-field.
+  title: Shopmonkey Work Orders API
+  description: The Shopmonkey API is a REST API (current version v3) that lets auto, tire, and powersports repair shops integrate their Shopmonkey account - Work Orders, Customers, Vehicles, Parts/Inventory, Invoices/Payments, Appointments, Employees (Users), Locations, and Webhooks - with other business systems.
   version: v3
   contact:
     name: Shopmonkey
@@ -342,40 +342,7 @@ components:
       schema:
         type: string
       description: Parent order identifier.
-  responses:
-    NotFound:
-      description: The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed or API key is invalid/expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request body failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: false
-        code:
-          type: string
-          description: Alphanumeric error code (e.g. BOFF-97d5f9).
-        message:
-          type: string
-        documentation_url:
-          type: string
-      description: MODELED from the documented error shape on shopmonkey.dev/overview.
     Order:
       type: object
       properties:
@@ -415,6 +382,39 @@ components:
         locationId:
           type: string
       additionalProperties: true
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          description: Alphanumeric error code (e.g. BOFF-97d5f9).
+        message:
+          type: string
+        documentation_url:
+          type: string
+      description: MODELED from the documented error shape on shopmonkey.dev/overview.
+  responses:
+    Unauthorized:
+      description: Authentication failed or API key is invalid/expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
