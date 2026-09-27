@@ -297,6 +297,20 @@ paths:
           description: Deleted.
 components:
   schemas:
+    VehicleInput:
+      type: object
+      properties:
+        vin:
+          type: string
+        year:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        customerId:
+          type: string
+      additionalProperties: true
     Vehicle:
       type: object
       properties:
@@ -316,20 +330,6 @@ components:
           type: string
       additionalProperties: true
       description: MODELED from documented vehicle lookup endpoints (years/makes/models/submodels/vin/ymm).
-    VehicleInput:
-      type: object
-      properties:
-        vin:
-          type: string
-        year:
-          type: string
-        make:
-          type: string
-        model:
-          type: string
-        customerId:
-          type: string
-      additionalProperties: true
   parameters:
     Id:
       name: id

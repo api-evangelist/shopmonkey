@@ -131,11 +131,13 @@ paths:
           description: Updated role assignment.
 components:
   schemas:
-    User:
+    UserInput:
       type: object
+      required:
+      - firstName
+      - lastName
+      - email
       properties:
-        id:
-          type: string
         firstName:
           type: string
         lastName:
@@ -145,13 +147,11 @@ components:
         roleId:
           type: string
       additionalProperties: true
-    UserInput:
+    User:
       type: object
-      required:
-      - firstName
-      - lastName
-      - email
       properties:
+        id:
+          type: string
         firstName:
           type: string
         lastName:

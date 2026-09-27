@@ -52,6 +52,16 @@ paths:
                 $ref: '#/components/schemas/Location'
 components:
   schemas:
+    LocationInput:
+      type: object
+      properties:
+        name:
+          type: string
+        address:
+          type: string
+        timezone:
+          type: string
+      additionalProperties: true
     Location:
       type: object
       properties:
@@ -65,16 +75,6 @@ components:
           type: string
       additionalProperties: true
       description: MODELED from the documented "address, contact details, timezone, and display preferences" update fields.
-    LocationInput:
-      type: object
-      properties:
-        name:
-          type: string
-        address:
-          type: string
-        timezone:
-          type: string
-      additionalProperties: true
   parameters:
     Id:
       name: id
