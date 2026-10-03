@@ -327,40 +327,22 @@ paths:
         '200':
           description: Orders for the vehicle.
 components:
-  responses:
-    NotFound:
-      description: The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request body failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed or API key is invalid/expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
+    OrderId:
+      name: orderId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Parent order identifier.
   schemas:
-    OrderInput:
-      type: object
-      required:
-      - customerId
-      - vehicleId
-      - locationId
-      properties:
-        customerId:
-          type: string
-        vehicleId:
-          type: string
-        locationId:
-          type: string
-      additionalProperties: true
     Order:
       type: object
       properties:
@@ -400,21 +382,39 @@ components:
         documentation_url:
           type: string
       description: MODELED from the documented error shape on shopmonkey.dev/overview.
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Resource identifier.
-    OrderId:
-      name: orderId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Parent order identifier.
+    OrderInput:
+      type: object
+      required:
+      - customerId
+      - vehicleId
+      - locationId
+      properties:
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        locationId:
+          type: string
+      additionalProperties: true
+  responses:
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed or API key is invalid/expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

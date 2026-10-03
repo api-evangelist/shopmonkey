@@ -173,21 +173,6 @@ paths:
                 format: binary
 components:
   schemas:
-    Payment:
-      type: object
-      properties:
-        id:
-          type: string
-        orderId:
-          type: string
-        amount:
-          type: number
-        method:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-      additionalProperties: true
     PaymentInput:
       type: object
       required:
@@ -215,6 +200,21 @@ components:
           type: string
       additionalProperties: true
       description: MODELED from the documented order_shared signed_invoice surface.
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        amount:
+          type: number
+        method:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+      additionalProperties: true
   parameters:
     Id:
       name: id
