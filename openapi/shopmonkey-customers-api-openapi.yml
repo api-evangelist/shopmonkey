@@ -216,7 +216,34 @@ paths:
         '200':
           description: Deleted.
 components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
   schemas:
+    Vehicle:
+      type: object
+      properties:
+        id:
+          type: string
+        vin:
+          type: string
+        year:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        submodel:
+          type: string
+        licensePlate:
+          type: string
+      additionalProperties: true
+      description: MODELED from documented vehicle lookup endpoints (years/makes/models/submodels/vin/ymm).
     Customer:
       type: object
       properties:
@@ -246,25 +273,6 @@ components:
                 type: string
       additionalProperties: true
       description: MODELED from documented customer email/phone sub-resources.
-    Vehicle:
-      type: object
-      properties:
-        id:
-          type: string
-        vin:
-          type: string
-        year:
-          type: string
-        make:
-          type: string
-        model:
-          type: string
-        submodel:
-          type: string
-        licensePlate:
-          type: string
-      additionalProperties: true
-      description: MODELED from documented vehicle lookup endpoints (years/makes/models/submodels/vin/ymm).
     CustomerInput:
       type: object
       required:
@@ -280,14 +288,6 @@ components:
         phone:
           type: string
       additionalProperties: true
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Resource identifier.
   securitySchemes:
     bearerAuth:
       type: http

@@ -172,34 +172,22 @@ paths:
                 type: string
                 format: binary
 components:
+  parameters:
+    PublicId:
+      name: publicId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Public (customer-shareable) order identifier used on order_shared endpoints.
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
   schemas:
-    PaymentInput:
-      type: object
-      required:
-      - orderId
-      - amount
-      properties:
-        orderId:
-          type: string
-        amount:
-          type: number
-        method:
-          type: string
-      additionalProperties: true
-    SignedInvoice:
-      type: object
-      properties:
-        id:
-          type: string
-        orderId:
-          type: string
-        signedDate:
-          type: string
-          format: date-time
-        signatureUrl:
-          type: string
-      additionalProperties: true
-      description: MODELED from the documented order_shared signed_invoice surface.
     Payment:
       type: object
       properties:
@@ -215,21 +203,33 @@ components:
           type: string
           format: date-time
       additionalProperties: true
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Resource identifier.
-    PublicId:
-      name: publicId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Public (customer-shareable) order identifier used on order_shared endpoints.
+    SignedInvoice:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        signedDate:
+          type: string
+          format: date-time
+        signatureUrl:
+          type: string
+      additionalProperties: true
+      description: MODELED from the documented order_shared signed_invoice surface.
+    PaymentInput:
+      type: object
+      required:
+      - orderId
+      - amount
+      properties:
+        orderId:
+          type: string
+        amount:
+          type: number
+        method:
+          type: string
+      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

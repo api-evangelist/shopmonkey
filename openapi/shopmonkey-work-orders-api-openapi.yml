@@ -327,47 +327,7 @@ paths:
         '200':
           description: Orders for the vehicle.
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Resource identifier.
-    OrderId:
-      name: orderId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Parent order identifier.
   schemas:
-    Order:
-      type: object
-      properties:
-        id:
-          type: string
-        publicId:
-          type: string
-        customerId:
-          type: string
-        vehicleId:
-          type: string
-        locationId:
-          type: string
-        status:
-          type: string
-        number:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-        updatedDate:
-          type: string
-          format: date-time
-      additionalProperties: true
-      description: MODELED - core fields inferred from documented relationships (customer/vehicle/location) and search/list endpoints; not a field-complete schema.
     Error:
       type: object
       properties:
@@ -396,15 +356,34 @@ components:
         locationId:
           type: string
       additionalProperties: true
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        publicId:
+          type: string
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        locationId:
+          type: string
+        status:
+          type: string
+        number:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+      description: MODELED - core fields inferred from documented relationships (customer/vehicle/location) and search/list endpoints; not a field-complete schema.
   responses:
     NotFound:
       description: The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request body failed validation.
       content:
         application/json:
           schema:
@@ -415,6 +394,27 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
+    OrderId:
+      name: orderId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Parent order identifier.
   securitySchemes:
     bearerAuth:
       type: http

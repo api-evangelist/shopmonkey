@@ -122,36 +122,7 @@ paths:
         '200':
           description: The cancelled appointment.
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Resource identifier.
   schemas:
-    AppointmentInput:
-      type: object
-      required:
-      - startDate
-      - endDate
-      properties:
-        orderId:
-          type: string
-        customerId:
-          type: string
-        vehicleId:
-          type: string
-        technicianId:
-          type: string
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-      additionalProperties: true
     Appointment:
       type: object
       properties:
@@ -176,6 +147,35 @@ components:
         cancelled:
           type: boolean
       additionalProperties: true
+    AppointmentInput:
+      type: object
+      required:
+      - startDate
+      - endDate
+      properties:
+        orderId:
+          type: string
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        technicianId:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
   securitySchemes:
     bearerAuth:
       type: http
