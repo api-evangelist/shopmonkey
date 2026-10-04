@@ -333,6 +333,9 @@ apis:
   - type: APIReference
     url: https://shopmonkey.dev/resources/webhook
 common:
+- type: CapabilityMap
+  url: capabilities/shopmonkey-capability-edges.yml
+  name: Shopmonkey Business Capability Map
 - type: AgenticAccess
   url: agentic-access/shopmonkey-agentic-access.yml
 - type: DomainSecurity
