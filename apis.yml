@@ -49,7 +49,7 @@ tags:
 - REST
 - Not GraphQL
 created: '2026-07-04'
-modified: '2026-07-04'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: shopmonkey:shopmonkey-appointments-api
@@ -333,6 +333,8 @@ apis:
   - type: APIReference
     url: https://shopmonkey.dev/resources/webhook
 common:
+- url: https://www.shopmonkey.io/blog/
+  type: Blog
 - type: CapabilityMap
   url: capabilities/shopmonkey-capability-edges.yml
   name: Shopmonkey Business Capability Map
