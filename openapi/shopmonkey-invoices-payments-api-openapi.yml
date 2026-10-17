@@ -172,37 +172,7 @@ paths:
                 type: string
                 format: binary
 components:
-  parameters:
-    PublicId:
-      name: publicId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Public (customer-shareable) order identifier used on order_shared endpoints.
-    Id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Resource identifier.
   schemas:
-    Payment:
-      type: object
-      properties:
-        id:
-          type: string
-        orderId:
-          type: string
-        amount:
-          type: number
-        method:
-          type: string
-        createdDate:
-          type: string
-          format: date-time
-      additionalProperties: true
     SignedInvoice:
       type: object
       properties:
@@ -230,6 +200,36 @@ components:
         method:
           type: string
       additionalProperties: true
+    Payment:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        amount:
+          type: number
+        method:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+      additionalProperties: true
+  parameters:
+    PublicId:
+      name: publicId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Public (customer-shareable) order identifier used on order_shared endpoints.
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
   securitySchemes:
     bearerAuth:
       type: http

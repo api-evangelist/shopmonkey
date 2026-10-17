@@ -130,15 +130,21 @@ paths:
         '200':
           description: Updated role assignment.
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Resource identifier.
   schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        roleId:
+          type: string
+      additionalProperties: true
     UserInput:
       type: object
       required:
@@ -155,20 +161,14 @@ components:
         roleId:
           type: string
       additionalProperties: true
-    User:
-      type: object
-      properties:
-        id:
-          type: string
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-        roleId:
-          type: string
-      additionalProperties: true
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
   securitySchemes:
     bearerAuth:
       type: http

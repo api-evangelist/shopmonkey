@@ -327,35 +327,26 @@ paths:
         '200':
           description: Orders for the vehicle.
 components:
+  responses:
+    NotFound:
+      description: The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ValidationError:
+      description: The request body failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed or API key is invalid/expired.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: false
-        code:
-          type: string
-          description: Alphanumeric error code (e.g. BOFF-97d5f9).
-        message:
-          type: string
-        documentation_url:
-          type: string
-      description: MODELED from the documented error shape on shopmonkey.dev/overview.
-    OrderInput:
-      type: object
-      required:
-      - customerId
-      - vehicleId
-      - locationId
-      properties:
-        customerId:
-          type: string
-        vehicleId:
-          type: string
-        locationId:
-          type: string
-      additionalProperties: true
     Order:
       type: object
       properties:
@@ -381,33 +372,35 @@ components:
           format: date-time
       additionalProperties: true
       description: MODELED - core fields inferred from documented relationships (customer/vehicle/location) and search/list endpoints; not a field-complete schema.
-  responses:
-    NotFound:
-      description: The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed or API key is invalid/expired.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    ValidationError:
-      description: The request body failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    OrderInput:
+      type: object
+      required:
+      - customerId
+      - vehicleId
+      - locationId
+      properties:
+        customerId:
+          type: string
+        vehicleId:
+          type: string
+        locationId:
+          type: string
+      additionalProperties: true
+    Error:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        code:
+          type: string
+          description: Alphanumeric error code (e.g. BOFF-97d5f9).
+        message:
+          type: string
+        documentation_url:
+          type: string
+      description: MODELED from the documented error shape on shopmonkey.dev/overview.
   parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Resource identifier.
     OrderId:
       name: orderId
       in: path
@@ -415,6 +408,13 @@ components:
       schema:
         type: string
       description: Parent order identifier.
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
   securitySchemes:
     bearerAuth:
       type: http

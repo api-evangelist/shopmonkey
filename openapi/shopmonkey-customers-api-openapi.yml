@@ -216,14 +216,6 @@ paths:
         '200':
           description: Deleted.
 components:
-  parameters:
-    Id:
-      name: id
-      in: path
-      required: true
-      schema:
-        type: string
-      description: Resource identifier.
   schemas:
     Vehicle:
       type: object
@@ -288,6 +280,14 @@ components:
         phone:
           type: string
       additionalProperties: true
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+      description: Resource identifier.
   securitySchemes:
     bearerAuth:
       type: http
